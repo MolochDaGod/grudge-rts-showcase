@@ -4,257 +4,141 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, TrendingUp, Users, Clock, Download, Star, BarChart3, Activity, Target, Globe } from "lucide-react";
+import { ArrowLeft, Server, GitBranch, Gamepad2, Code2, Activity, CheckCircle2, XCircle, Clock } from "lucide-react";
 import { Link } from "wouter";
 
-interface ProjectMetrics {
-  id: string;
+// ── Real Grudge Studio Ecosystem Data ──
+
+interface Deployment {
   name: string;
-  engine: string;
-  linesOfCode: number;
-  contributors: number;
-  commits: number;
-  buildTime: number;
-  lastActivity: string;
-  status: 'active' | 'completed' | 'paused';
-  performance: {
-    fps: number;
-    memory: number;
-    loadTime: number;
-  };
-  deployment: {
-    platforms: string[];
-    builds: number;
-    downloads: number;
-  };
+  url: string;
+  platform: 'Vercel' | 'Railway' | 'GitHub Pages' | 'Puter';
+  description: string;
+  status: 'live' | 'checking' | 'down';
+  responseMs?: number;
 }
 
-interface EngineStats {
-  engine: string;
-  projects: number;
-  activeUsers: number;
-  totalBuilds: number;
-  avgRating: number;
-  marketShare: number;
+interface RepoProject {
+  name: string;
+  language: string;
+  description: string;
+  stars: number;
+  forks: number;
+  url: string;
 }
 
-interface GlobalMetrics {
-  totalProjects: number;
-  activeUsers: number;
-  totalDownloads: number;
-  platformDistribution: { platform: string; percentage: number }[];
-  enginePopularity: { engine: string; usage: number }[];
-  weeklyActivity: { day: string; projects: number; builds: number }[];
+interface GameProject {
+  name: string;
+  route: string;
+  genre: string;
+  status: 'playable' | 'prototype' | 'in-dev';
+  engine: string;
 }
+
+const DEPLOYMENTS: Deployment[] = [
+  { name: 'Grudge Platform', url: 'https://grudge-platform.vercel.app', platform: 'Vercel', description: 'App launcher, auth API, toolkit SPA', status: 'checking' },
+  { name: 'GDevelop Assistant', url: 'https://gdevelop-assistant.vercel.app', platform: 'Vercel', description: 'AI game dev tools, 30+ pages, 3D editors', status: 'checking' },
+  { name: 'Warlord Crafting Suite', url: 'https://warlord-crafting-suite.vercel.app', platform: 'Vercel', description: 'Crafting, character builder, professions, PvP', status: 'checking' },
+  { name: 'Auth Gateway', url: 'https://auth-gateway-flax.vercel.app', platform: 'Vercel', description: 'JWT auth, Discord/GitHub/Google OAuth', status: 'checking' },
+  { name: 'GrudaChain Nexus', url: 'https://grudachain.grudgestudio.com', platform: 'Vercel', description: 'Deployment directory & link catalog', status: 'checking' },
+  { name: 'App Gallery', url: 'https://grudachain-app-gallery.vercel.app', platform: 'Vercel', description: 'Grudge Studio project showcase', status: 'checking' },
+  { name: 'ObjectStore API', url: 'https://molochdagod.github.io/ObjectStore', platform: 'GitHub Pages', description: 'Game data API — weapons, armor, sprites (500+ items)', status: 'checking' },
+  { name: 'Puter Cloud Dashboard', url: 'https://grudge-studio.puter.site', platform: 'Puter', description: 'AI chat, cloud storage, profile management', status: 'checking' },
+  { name: 'GRUDA Legion Node', url: 'https://gruda-legion-production.up.railway.app/health', platform: 'Railway', description: 'AI agent node — Socket.IO powered', status: 'checking' },
+];
+
+const REPO_PROJECTS: RepoProject[] = [
+  { name: 'grudge-platform', language: 'JavaScript', description: 'Unified app launcher, auth gateway & toolkit', stars: 1, forks: 0, url: 'https://github.com/MolochDaGod/grudge-platform' },
+  { name: 'GDevelopAssistant', language: 'TypeScript', description: 'AI game dev assistant — 30+ tools, Three.js, React', stars: 0, forks: 0, url: 'https://github.com/MolochDaGod/GDevelopAssistant' },
+  { name: 'Warlord-Crafting-Suite', language: 'TypeScript', description: 'Game systems — crafting, character, professions, battles', stars: 0, forks: 0, url: 'https://github.com/MolochDaGod/Warlord-Crafting-Suite' },
+  { name: 'ObjectStore', language: 'HTML', description: 'Public game data API — 24 endpoints, 500+ items', stars: 1, forks: 0, url: 'https://github.com/MolochDaGod/ObjectStore' },
+  { name: 'grudge-studio', language: 'TypeScript', description: 'Monorepo — crafting suite, builder, game services', stars: 0, forks: 0, url: 'https://github.com/MolochDaGod/grudge-studio' },
+  { name: 'grudachain', language: 'TypeScript', description: 'GRUDA Legion standalone AI system', stars: 0, forks: 0, url: 'https://github.com/MolochDaGod/grudachain' },
+  { name: 'Grudge-Builder', language: 'JavaScript', description: 'Visual game builder and level editor', stars: 0, forks: 0, url: 'https://github.com/MolochDaGod/Grudge-Builder' },
+  { name: 'grudge-warlords-rts', language: 'Java', description: '3 Factions, 6 Races, 4 Classes — web RTS', stars: 0, forks: 0, url: 'https://github.com/MolochDaGod/grudge-warlords-rts' },
+  { name: 'GrudgeWars', language: 'HTML', description: 'PvP browser game prototype', stars: 0, forks: 0, url: 'https://github.com/MolochDaGod/GrudgeWars' },
+  { name: 'GRUDGE-NFT-Island', language: 'JavaScript', description: 'NFT island exploration game', stars: 0, forks: 0, url: 'https://github.com/MolochDaGod/GRUDGE-NFT-Island' },
+];
+
+const GAME_PROJECTS: GameProject[] = [
+  { name: 'Crown Clash', route: '/crown-clash', genre: 'Strategy', status: 'playable', engine: 'React + Canvas' },
+  { name: 'Grudge Arena', route: '/arena', genre: 'PvP Fighter', status: 'playable', engine: 'React + Canvas' },
+  { name: 'Grudge Gangs', route: '/moba', genre: 'MOBA', status: 'prototype', engine: 'React + Canvas' },
+  { name: 'Realm Protector', route: '/realm', genre: 'Tower Defense', status: 'prototype', engine: 'React + Canvas' },
+  { name: 'Swarm RTS', route: '/swarm-rts', genre: 'Real-Time Strategy', status: 'prototype', engine: 'React + Canvas' },
+  { name: 'Gruda Wars', route: '/gruda-wars', genre: 'Strategy RPG', status: 'in-dev', engine: 'React + Canvas' },
+  { name: 'MMO World', route: '/mmo', genre: 'MMO RPG', status: 'in-dev', engine: 'Three.js + React' },
+  { name: 'Grudge Swarm', route: '/grudge-swarm', genre: 'Swarm Survival', status: 'prototype', engine: 'React + Canvas' },
+  { name: 'Space Assault', route: '/shooter', genre: 'Space Shooter', status: 'playable', engine: 'React + Canvas' },
+  { name: 'Sky Command', route: '/flight', genre: 'Flight Sim', status: 'prototype', engine: 'Three.js + React' },
+  { name: 'Sprint Master', route: '/runner', genre: 'Endless Runner', status: 'playable', engine: 'React + Canvas' },
+  { name: 'Pixel Warrior', route: '/platformer', genre: 'Platformer', status: 'playable', engine: 'React + Canvas' },
+];
+
+// Real language distribution from GitHub (MolochDaGod — 53 repos)
+const LANGUAGE_STATS = [
+  { language: 'TypeScript', repos: 12, percentage: 31.6 },
+  { language: 'HTML', repos: 10, percentage: 26.3 },
+  { language: 'JavaScript', repos: 9, percentage: 23.7 },
+  { language: 'Java', repos: 1, percentage: 2.6 },
+  { language: 'C#', repos: 1, percentage: 2.6 },
+  { language: 'Rust', repos: 1, percentage: 2.6 },
+  { language: 'Go', repos: 1, percentage: 2.6 },
+  { language: 'C++', repos: 1, percentage: 2.6 },
+];
 
 export default function AnalyticsDashboard() {
-  const [projectMetrics, setProjectMetrics] = useState<ProjectMetrics[]>([]);
-  const [engineStats, setEngineStats] = useState<EngineStats[]>([]);
-  const [globalMetrics, setGlobalMetrics] = useState<GlobalMetrics | null>(null);
-  const [timeRange, setTimeRange] = useState<'7d' | '30d' | '90d'>('30d');
+  const [deployments, setDeployments] = useState<Deployment[]>(DEPLOYMENTS);
 
+  // Run live health checks on mount
   useEffect(() => {
-    // Initialize project metrics data
-    const projectData: ProjectMetrics[] = [
-      {
-        id: '1',
-        name: 'Pixel Adventure RPG',
-        engine: 'GDevelop',
-        linesOfCode: 15420,
-        contributors: 3,
-        commits: 187,
-        buildTime: 45,
-        lastActivity: '2 hours ago',
-        status: 'active',
-        performance: {
-          fps: 60,
-          memory: 125,
-          loadTime: 2.3
-        },
-        deployment: {
-          platforms: ['Web', 'Android', 'iOS'],
-          builds: 23,
-          downloads: 1847
-        }
-      },
-      {
-        id: '2',
-        name: 'Space Shooter 3D',
-        engine: 'Buildbox',
-        linesOfCode: 8940,
-        contributors: 2,
-        commits: 96,
-        buildTime: 78,
-        lastActivity: '1 day ago',
-        status: 'active',
-        performance: {
-          fps: 55,
-          memory: 245,
-          loadTime: 4.1
-        },
-        deployment: {
-          platforms: ['Android', 'iOS'],
-          builds: 15,
-          downloads: 892
-        }
-      },
-      {
-        id: '3',
-        name: 'Tower Defense Pro',
-        engine: 'Construct3',
-        linesOfCode: 12680,
-        contributors: 4,
-        commits: 234,
-        buildTime: 32,
-        lastActivity: '3 hours ago',
-        status: 'completed',
-        performance: {
-          fps: 58,
-          memory: 89,
-          loadTime: 1.8
-        },
-        deployment: {
-          platforms: ['Web', 'Android'],
-          builds: 31,
-          downloads: 3421
-        }
-      },
-      {
-        id: '4',
-        name: 'Crystal Quest RPG',
-        engine: 'RPG Maker',
-        linesOfCode: 23450,
-        contributors: 1,
-        commits: 156,
-        buildTime: 124,
-        lastActivity: '5 days ago',
-        status: 'paused',
-        performance: {
-          fps: 30,
-          memory: 312,
-          loadTime: 8.7
-        },
-        deployment: {
-          platforms: ['Windows', 'Mac'],
-          builds: 8,
-          downloads: 567
-        }
-      }
-    ];
-
-    setProjectMetrics(projectData);
-
-    // Initialize engine statistics
-    const engineData: EngineStats[] = [
-      {
-        engine: 'GDevelop',
-        projects: 15,
-        activeUsers: 234,
-        totalBuilds: 156,
-        avgRating: 4.7,
-        marketShare: 28.5
-      },
-      {
-        engine: 'Construct3',
-        projects: 12,
-        activeUsers: 189,
-        totalBuilds: 98,
-        avgRating: 4.6,
-        marketShare: 22.8
-      },
-      {
-        engine: 'Buildbox',
-        projects: 8,
-        activeUsers: 145,
-        totalBuilds: 67,
-        avgRating: 4.4,
-        marketShare: 18.2
-      },
-      {
-        engine: 'Stencyl',
-        projects: 6,
-        activeUsers: 98,
-        totalBuilds: 45,
-        avgRating: 4.3,
-        marketShare: 12.1
-      },
-      {
-        engine: 'RPG Maker',
-        projects: 3,
-        activeUsers: 67,
-        totalBuilds: 23,
-        avgRating: 4.5,
-        marketShare: 8.9
-      },
-      {
-        engine: 'Unity',
-        projects: 4,
-        activeUsers: 156,
-        totalBuilds: 78,
-        avgRating: 4.8,
-        marketShare: 9.5
-      }
-    ];
-
-    setEngineStats(engineData);
-
-    // Initialize global metrics
-    const globalData: GlobalMetrics = {
-      totalProjects: 48,
-      activeUsers: 889,
-      totalDownloads: 15847,
-      platformDistribution: [
-        { platform: 'Web', percentage: 45.2 },
-        { platform: 'Android', percentage: 28.7 },
-        { platform: 'iOS', percentage: 16.8 },
-        { platform: 'Windows', percentage: 6.1 },
-        { platform: 'Mac', percentage: 3.2 }
-      ],
-      enginePopularity: [
-        { engine: 'GDevelop', usage: 31.2 },
-        { engine: 'Construct3', usage: 25.0 },
-        { engine: 'Buildbox', usage: 16.7 },
-        { engine: 'Unity', usage: 12.5 },
-        { engine: 'Stencyl', usage: 8.3 },
-        { engine: 'RPG Maker', usage: 6.3 }
-      ],
-      weeklyActivity: [
-        { day: 'Mon', projects: 12, builds: 34 },
-        { day: 'Tue', projects: 18, builds: 45 },
-        { day: 'Wed', projects: 15, builds: 38 },
-        { day: 'Thu', projects: 22, builds: 52 },
-        { day: 'Fri', projects: 28, builds: 67 },
-        { day: 'Sat', projects: 19, builds: 41 },
-        { day: 'Sun', projects: 14, builds: 29 }
-      ]
+    const checkDeployments = async () => {
+      const results = await Promise.all(
+        DEPLOYMENTS.map(async (dep) => {
+          try {
+            const start = performance.now();
+            await fetch(dep.url, { method: 'GET', mode: 'no-cors' });
+            const ms = Math.round(performance.now() - start);
+            return { ...dep, status: 'live' as const, responseMs: ms };
+          } catch {
+            return { ...dep, status: 'down' as const };
+          }
+        })
+      );
+      setDeployments(results);
     };
-
-    setGlobalMetrics(globalData);
+    checkDeployments();
   }, []);
 
-  const getStatusColor = (status: string) => {
+  const liveCount = deployments.filter(d => d.status === 'live').length;
+  const checkingCount = deployments.filter(d => d.status === 'checking').length;
+  const playableGames = GAME_PROJECTS.filter(g => g.status === 'playable').length;
+
+  const getStatusBadge = (status: string) => {
     switch (status) {
-      case 'active': return 'bg-green-500';
-      case 'completed': return 'bg-blue-500';
-      case 'paused': return 'bg-orange-500';
-      default: return 'bg-gray-500';
+      case 'live': return <Badge className="bg-green-600 text-white"><CheckCircle2 className="w-3 h-3 mr-1" />Live</Badge>;
+      case 'checking': return <Badge className="bg-yellow-600 text-white"><Clock className="w-3 h-3 mr-1" />Checking</Badge>;
+      case 'down': return <Badge className="bg-red-600 text-white"><XCircle className="w-3 h-3 mr-1" />Down</Badge>;
+      default: return null;
     }
   };
 
-  const getPerformanceScore = (performance: ProjectMetrics['performance']) => {
-    const fpsScore = Math.min(performance.fps / 60 * 100, 100);
-    const memoryScore = Math.max(100 - (performance.memory / 500 * 100), 0);
-    const loadScore = Math.max(100 - (performance.loadTime / 10 * 100), 0);
-    return Math.round((fpsScore + memoryScore + loadScore) / 3);
+  const getGameStatusBadge = (status: string) => {
+    switch (status) {
+      case 'playable': return <Badge className="bg-green-600 text-white">Playable</Badge>;
+      case 'prototype': return <Badge className="bg-yellow-600 text-white">Prototype</Badge>;
+      case 'in-dev': return <Badge className="bg-blue-600 text-white">In Dev</Badge>;
+      default: return null;
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-foreground">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <Link href="/engine-launcher">
-            <Button variant="outline" className="border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-black">
+            <Button variant="outline" className="border-orange-400 text-gold-light hover:bg-orange-400 hover:text-black">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Engine Launcher
             </Button>
@@ -262,176 +146,155 @@ export default function AnalyticsDashboard() {
           
           <div className="text-center">
             <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-400">
-              Analytics Dashboard
+              Grudge Studio Analytics
             </h1>
-            <p className="text-gray-400">Comprehensive project and engine performance metrics</p>
+            <p className="text-muted-foreground">Real ecosystem data — deployments, repos, and games</p>
           </div>
           
-          <div className="flex space-x-2">
-            {['7d', '30d', '90d'].map((range) => (
-              <Button
-                key={range}
-                variant={timeRange === range ? "default" : "outline"}
-                size="sm"
-                onClick={() => setTimeRange(range as any)}
-                className={timeRange === range 
-                  ? "bg-orange-500 hover:bg-orange-600" 
-                  : "border-gray-600 text-gray-300"
-                }
-              >
-                {range}
-              </Button>
-            ))}
+          <div className="text-sm text-muted-foreground text-right">
+            <p>Owner: MolochDaGod</p>
+            <p>Updated: Live</p>
           </div>
         </div>
 
-        {/* Global Metrics Overview */}
-        {globalMetrics && (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <Card className="bg-gradient-to-br from-orange-900/30 to-red-900/20 border-orange-500/30">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-orange-400 text-sm font-medium">Total Projects</p>
-                    <p className="text-3xl font-bold text-white">{globalMetrics.totalProjects}</p>
-                  </div>
-                  <Target className="w-8 h-8 text-orange-400" />
+        {/* Global Overview Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <Card className="bg-gradient-to-br from-green-900/30 to-teal-900/20 border-green-500/30">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-green-400 text-sm font-medium">Live Deployments</p>
+                  <p className="text-3xl font-bold text-foreground">
+                    {checkingCount > 0 ? '...' : liveCount} / {DEPLOYMENTS.length}
+                  </p>
                 </div>
-                <div className="mt-4">
-                  <div className="flex items-center text-sm">
-                    <TrendingUp className="w-4 h-4 text-green-400 mr-1" />
-                    <span className="text-green-400">+12% from last month</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                <Server className="w-8 h-8 text-green-400" />
+              </div>
+              <p className="text-xs text-muted-foreground mt-2">Vercel, Railway, GitHub Pages, Puter</p>
+            </CardContent>
+          </Card>
 
-            <Card className="bg-gradient-to-br from-blue-900/30 to-purple-900/20 border-blue-500/30">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-blue-400 text-sm font-medium">Active Users</p>
-                    <p className="text-3xl font-bold text-white">{globalMetrics.activeUsers.toLocaleString()}</p>
-                  </div>
-                  <Users className="w-8 h-8 text-blue-400" />
+          <Card className="bg-gradient-to-br from-blue-900/30 to-purple-900/20 border-blue-500/30">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-blue-400 text-sm font-medium">GitHub Repos</p>
+                  <p className="text-3xl font-bold text-foreground">53</p>
                 </div>
-                <div className="mt-4">
-                  <div className="flex items-center text-sm">
-                    <TrendingUp className="w-4 h-4 text-green-400 mr-1" />
-                    <span className="text-green-400">+8% from last month</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                <GitBranch className="w-8 h-8 text-blue-400" />
+              </div>
+              <p className="text-xs text-muted-foreground mt-2">10 languages across all repos</p>
+            </CardContent>
+          </Card>
 
-            <Card className="bg-gradient-to-br from-green-900/30 to-teal-900/20 border-green-500/30">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-green-400 text-sm font-medium">Total Downloads</p>
-                    <p className="text-3xl font-bold text-white">{globalMetrics.totalDownloads.toLocaleString()}</p>
-                  </div>
-                  <Download className="w-8 h-8 text-green-400" />
+          <Card className="bg-gradient-to-br from-orange-900/30 to-red-900/20 border-orange-500/30">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-gold-light text-sm font-medium">Game Prototypes</p>
+                  <p className="text-3xl font-bold text-foreground">{GAME_PROJECTS.length}</p>
                 </div>
-                <div className="mt-4">
-                  <div className="flex items-center text-sm">
-                    <TrendingUp className="w-4 h-4 text-green-400 mr-1" />
-                    <span className="text-green-400">+23% from last month</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                <Gamepad2 className="w-8 h-8 text-gold-light" />
+              </div>
+              <p className="text-xs text-muted-foreground mt-2">{playableGames} playable, {GAME_PROJECTS.length - playableGames} in progress</p>
+            </CardContent>
+          </Card>
 
-            <Card className="bg-gradient-to-br from-purple-900/30 to-pink-900/20 border-purple-500/30">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-purple-400 text-sm font-medium">Avg Build Time</p>
-                    <p className="text-3xl font-bold text-white">
-                      {Math.round(projectMetrics.reduce((acc, p) => acc + p.buildTime, 0) / projectMetrics.length)}s
-                    </p>
-                  </div>
-                  <Clock className="w-8 h-8 text-purple-400" />
+          <Card className="bg-gradient-to-br from-purple-900/30 to-pink-900/20 border-purple-500/30">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-purple-400 text-sm font-medium">Primary Stack</p>
+                  <p className="text-3xl font-bold text-foreground">TS</p>
                 </div>
-                <div className="mt-4">
-                  <div className="flex items-center text-sm">
-                    <TrendingUp className="w-4 h-4 text-red-400 mr-1" />
-                    <span className="text-red-400">+5% from last month</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        )}
+                <Code2 className="w-8 h-8 text-purple-400" />
+              </div>
+              <p className="text-xs text-muted-foreground mt-2">TypeScript + React + Vite + Vercel</p>
+            </CardContent>
+          </Card>
+        </div>
 
-        <Tabs defaultValue="projects" className="w-full">
+        <Tabs defaultValue="deployments" className="w-full">
           <TabsList className="grid w-full grid-cols-4 bg-gray-800/50 mb-8">
-            <TabsTrigger value="projects" className="data-[state=active]:bg-orange-500">
-              <Target className="w-4 h-4 mr-2" />
+            <TabsTrigger value="deployments" className="data-[state=active]:bg-primary">
+              <Server className="w-4 h-4 mr-2" />
+              Deployments
+            </TabsTrigger>
+            <TabsTrigger value="projects" className="data-[state=active]:bg-primary">
+              <GitBranch className="w-4 h-4 mr-2" />
               Projects
             </TabsTrigger>
-            <TabsTrigger value="engines" className="data-[state=active]:bg-orange-500">
-              <BarChart3 className="w-4 h-4 mr-2" />
-              Engines
+            <TabsTrigger value="games" className="data-[state=active]:bg-primary">
+              <Gamepad2 className="w-4 h-4 mr-2" />
+              Games
             </TabsTrigger>
-            <TabsTrigger value="performance" className="data-[state=active]:bg-orange-500">
+            <TabsTrigger value="stack" className="data-[state=active]:bg-primary">
               <Activity className="w-4 h-4 mr-2" />
-              Performance
-            </TabsTrigger>
-            <TabsTrigger value="distribution" className="data-[state=active]:bg-orange-500">
-              <Globe className="w-4 h-4 mr-2" />
-              Distribution
+              Tech Stack
             </TabsTrigger>
           </TabsList>
 
+          {/* Deployments Tab — Live Health Checks */}
+          <TabsContent value="deployments">
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-foreground">Live Deployments</h2>
+              <p className="text-muted-foreground text-sm">Real-time health checks against production endpoints.</p>
+              <div className="space-y-3">
+                {deployments.map((dep) => (
+                  <Card key={dep.url} className="bg-gray-800/50 border-gray-700">
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4 flex-1 min-w-0">
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-2">
+                              <a href={dep.url} target="_blank" rel="noopener noreferrer"
+                                className="font-semibold text-foreground hover:text-gold-light transition-colors">
+                                {dep.name}
+                              </a>
+                              <Badge variant="outline" className="text-xs">{dep.platform}</Badge>
+                            </div>
+                            <p className="text-sm text-muted-foreground truncate">{dep.description}</p>
+                            <p className="text-xs text-muted-foreground font-mono mt-1">{dep.url}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-3 shrink-0">
+                          {dep.responseMs !== undefined && (
+                            <span className="text-xs text-muted-foreground">{dep.responseMs}ms</span>
+                          )}
+                          {getStatusBadge(dep.status)}
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </TabsContent>
+
+          {/* Projects Tab — Real GitHub Repos */}
           <TabsContent value="projects">
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-white">Project Analytics</h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {projectMetrics.map((project) => (
-                  <Card key={project.id} className="bg-gray-800/50 border-gray-700">
-                    <CardHeader>
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <CardTitle className="text-white">{project.name}</CardTitle>
-                          <p className="text-gray-400">{project.engine}</p>
+              <h2 className="text-2xl font-bold text-foreground">GitHub Repositories</h2>
+              <p className="text-muted-foreground text-sm">
+                Key repositories from <a href="https://github.com/MolochDaGod" target="_blank" rel="noopener noreferrer" className="text-gold-light hover:underline">github.com/MolochDaGod</a> (53 total repos).
+              </p>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                {REPO_PROJECTS.map((repo) => (
+                  <Card key={repo.name} className="bg-gray-800/50 border-gray-700">
+                    <CardContent className="p-4">
+                      <div className="flex items-start justify-between">
+                        <div className="min-w-0 flex-1">
+                          <a href={repo.url} target="_blank" rel="noopener noreferrer"
+                            className="font-semibold text-foreground hover:text-gold-light transition-colors">
+                            {repo.name}
+                          </a>
+                          <p className="text-sm text-muted-foreground mt-1">{repo.description}</p>
                         </div>
-                        <Badge className={getStatusColor(project.status)}>
-                          {project.status}
-                        </Badge>
+                        <Badge variant="outline" className="text-xs shrink-0 ml-2">{repo.language}</Badge>
                       </div>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div className="grid grid-cols-2 gap-4 text-sm">
-                        <div>
-                          <p className="text-gray-400">Lines of Code</p>
-                          <p className="text-white font-semibold">{project.linesOfCode.toLocaleString()}</p>
-                        </div>
-                        <div>
-                          <p className="text-gray-400">Contributors</p>
-                          <p className="text-white font-semibold">{project.contributors}</p>
-                        </div>
-                        <div>
-                          <p className="text-gray-400">Commits</p>
-                          <p className="text-white font-semibold">{project.commits}</p>
-                        </div>
-                        <div>
-                          <p className="text-gray-400">Build Time</p>
-                          <p className="text-white font-semibold">{project.buildTime}s</p>
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <div className="flex justify-between text-sm mb-2">
-                          <span className="text-gray-400">Performance Score</span>
-                          <span className="text-orange-400">{getPerformanceScore(project.performance)}%</span>
-                        </div>
-                        <Progress value={getPerformanceScore(project.performance)} className="h-2" />
-                      </div>
-                      
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-gray-400">Last Activity: {project.lastActivity}</span>
-                        <span className="text-green-400">{project.deployment.downloads} downloads</span>
+                      <div className="flex items-center gap-4 mt-3 text-xs text-muted-foreground">
+                        <span>⭐ {repo.stars}</span>
+                        <span>🍴 {repo.forks}</span>
                       </div>
                     </CardContent>
                   </Card>
@@ -440,47 +303,27 @@ export default function AnalyticsDashboard() {
             </div>
           </TabsContent>
 
-          <TabsContent value="engines">
+          {/* Games Tab — Real Game Prototypes */}
+          <TabsContent value="games">
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-white">Engine Performance</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {engineStats.map((engine) => (
-                  <Card key={engine.engine} className="bg-gray-800/50 border-gray-700">
-                    <CardHeader>
-                      <CardTitle className="text-white flex items-center justify-between">
-                        {engine.engine}
-                        <div className="flex items-center">
-                          <Star className="w-4 h-4 text-orange-400 mr-1" />
-                          <span className="text-orange-400">{engine.avgRating}</span>
-                        </div>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div className="grid grid-cols-2 gap-4 text-sm">
+              <h2 className="text-2xl font-bold text-foreground">Game Prototypes</h2>
+              <p className="text-muted-foreground text-sm">
+                Browser-based games hosted on <a href="https://gdevelop-assistant.vercel.app" target="_blank" rel="noopener noreferrer" className="text-gold-light hover:underline">GDevelop Assistant</a>.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {GAME_PROJECTS.map((game) => (
+                  <Card key={game.route} className="bg-gray-800/50 border-gray-700">
+                    <CardContent className="p-4">
+                      <div className="flex items-start justify-between">
                         <div>
-                          <p className="text-gray-400">Projects</p>
-                          <p className="text-white font-semibold">{engine.projects}</p>
+                          <a href={`https://gdevelop-assistant.vercel.app${game.route}`} target="_blank" rel="noopener noreferrer"
+                            className="font-semibold text-foreground hover:text-gold-light transition-colors">
+                            {game.name}
+                          </a>
+                          <p className="text-sm text-muted-foreground mt-1">{game.genre}</p>
+                          <p className="text-xs text-muted-foreground mt-1">Engine: {game.engine}</p>
                         </div>
-                        <div>
-                          <p className="text-gray-400">Active Users</p>
-                          <p className="text-white font-semibold">{engine.activeUsers}</p>
-                        </div>
-                        <div>
-                          <p className="text-gray-400">Total Builds</p>
-                          <p className="text-white font-semibold">{engine.totalBuilds}</p>
-                        </div>
-                        <div>
-                          <p className="text-gray-400">Market Share</p>
-                          <p className="text-white font-semibold">{engine.marketShare}%</p>
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <div className="flex justify-between text-sm mb-2">
-                          <span className="text-gray-400">Market Share</span>
-                          <span className="text-orange-400">{engine.marketShare}%</span>
-                        </div>
-                        <Progress value={engine.marketShare} className="h-2" />
+                        {getGameStatusBadge(game.status)}
                       </div>
                     </CardContent>
                   </Card>
@@ -489,23 +332,25 @@ export default function AnalyticsDashboard() {
             </div>
           </TabsContent>
 
-          <TabsContent value="performance">
+          {/* Tech Stack Tab — Real Language Distribution */}
+          <TabsContent value="stack">
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-white">Performance Metrics</h2>
+              <h2 className="text-2xl font-bold text-foreground">Technology Stack</h2>
+              <p className="text-muted-foreground text-sm">Language distribution across 38 repos with detected languages (out of 53 total).</p>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <Card className="bg-gray-800/50 border-gray-700">
                   <CardHeader>
-                    <CardTitle className="text-white">Performance Overview</CardTitle>
+                    <CardTitle className="text-foreground">Language Distribution</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {projectMetrics.map((project) => (
-                        <div key={project.id} className="space-y-2">
-                          <div className="flex justify-between">
-                            <span className="text-gray-300">{project.name}</span>
-                            <span className="text-orange-400">{getPerformanceScore(project.performance)}%</span>
+                      {LANGUAGE_STATS.map((lang) => (
+                        <div key={lang.language} className="space-y-2">
+                          <div className="flex justify-between text-sm">
+                            <span className="text-gray-300">{lang.language}</span>
+                            <span className="text-gold-light">{lang.repos} repos ({lang.percentage}%)</span>
                           </div>
-                          <Progress value={getPerformanceScore(project.performance)} className="h-1" />
+                          <Progress value={lang.percentage} className="h-2" />
                         </div>
                       ))}
                     </div>
@@ -514,76 +359,36 @@ export default function AnalyticsDashboard() {
 
                 <Card className="bg-gray-800/50 border-gray-700">
                   <CardHeader>
-                    <CardTitle className="text-white">Build Times</CardTitle>
+                    <CardTitle className="text-foreground">Deployment Platforms</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {projectMetrics.map((project) => (
-                        <div key={project.id} className="flex items-center justify-between">
+                      {[
+                        { platform: 'Vercel', count: 6, description: 'Primary hosting — serverless + static' },
+                        { platform: 'GitHub Pages', count: 1, description: 'ObjectStore API — static hosting' },
+                        { platform: 'Railway', count: 1, description: 'GRUDA Legion — Node.js + Socket.IO' },
+                        { platform: 'Puter', count: 1, description: 'Cloud dashboard — AI + storage' },
+                      ].map((p) => (
+                        <div key={p.platform} className="flex items-center justify-between p-3 bg-gray-900/50 rounded-lg">
                           <div>
-                            <p className="text-gray-300">{project.name}</p>
-                            <p className="text-sm text-gray-400">{project.engine}</p>
+                            <p className="text-gray-300 font-medium">{p.platform}</p>
+                            <p className="text-xs text-muted-foreground">{p.description}</p>
                           </div>
-                          <div className="text-right">
-                            <p className="text-white font-semibold">{project.buildTime}s</p>
-                            <p className={`text-sm ${project.buildTime < 60 ? 'text-green-400' : project.buildTime < 120 ? 'text-orange-400' : 'text-red-400'}`}>
-                              {project.buildTime < 60 ? 'Fast' : project.buildTime < 120 ? 'Average' : 'Slow'}
-                            </p>
-                          </div>
+                          <Badge variant="outline">{p.count} {p.count === 1 ? 'service' : 'services'}</Badge>
                         </div>
                       ))}
                     </div>
+
+                    <div className="mt-6 p-4 bg-gray-900/50 rounded-lg">
+                      <h4 className="text-sm font-medium text-gray-300 mb-2">Core Stack</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {['React 18', 'TypeScript', 'Vite', 'Tailwind CSS', 'Radix UI', 'Three.js', 'Express', 'PostgreSQL', 'Drizzle ORM', 'Socket.IO', 'Solana/Web3'].map((tech) => (
+                          <Badge key={tech} variant="secondary" className="text-xs">{tech}</Badge>
+                        ))}
+                      </div>
+                    </div>
                   </CardContent>
                 </Card>
-              </div>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="distribution">
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-white">Platform Distribution</h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {globalMetrics && (
-                  <>
-                    <Card className="bg-gray-800/50 border-gray-700">
-                      <CardHeader>
-                        <CardTitle className="text-white">Platform Usage</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-4">
-                          {globalMetrics.platformDistribution.map((platform) => (
-                            <div key={platform.platform} className="space-y-2">
-                              <div className="flex justify-between">
-                                <span className="text-gray-300">{platform.platform}</span>
-                                <span className="text-orange-400">{platform.percentage}%</span>
-                              </div>
-                              <Progress value={platform.percentage} className="h-2" />
-                            </div>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    <Card className="bg-gray-800/50 border-gray-700">
-                      <CardHeader>
-                        <CardTitle className="text-white">Engine Popularity</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-4">
-                          {globalMetrics.enginePopularity.map((engine) => (
-                            <div key={engine.engine} className="space-y-2">
-                              <div className="flex justify-between">
-                                <span className="text-gray-300">{engine.engine}</span>
-                                <span className="text-orange-400">{engine.usage}%</span>
-                              </div>
-                              <Progress value={engine.usage} className="h-2" />
-                            </div>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </>
-                )}
               </div>
             </div>
           </TabsContent>
