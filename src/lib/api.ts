@@ -1,5 +1,60 @@
 import { apiRequest } from "./queryClient";
-import type { ScrapingJob, ScrapedPage, StoreProduct, Order } from "@/shared/schema";
+import { config } from "./config";
+import type {
+  ScrapingJob,
+  ScrapedPage,
+  StoreProduct,
+  Order,
+  AuthResponse,
+  User,
+  Account,
+} from "@/shared/schema";
+
+// ─── Auth API (direct to auth-gateway) ─────────────────────
+
+export const authApi = {
+  login: async (username: string, password: string): Promise<AuthResponse> => {
+    const res = await fetch(`${config.AUTH_GATEWAY_URL}/api/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  },
+
+  register: async (username: string, password: string, email?: string): Promise<AuthResponse> => {
+    const res = await fetch(`${config.AUTH_GATEWAY_URL}/api/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password, email }),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  },
+
+  guest: async (deviceId: string): Promise<AuthResponse> => {
+    const res = await fetch(`${config.AUTH_GATEWAY_URL}/api/guest`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ deviceId }),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  },
+
+  /** Get the authenticated user's profile */
+  getMe: async (): Promise<User> => {
+    const response = await apiRequest("GET", "/api/me");
+    return response.json();
+  },
+
+  /** Get the authenticated user's game account */
+  getAccount: async (): Promise<Account> => {
+    const response = await apiRequest("GET", "/api/account");
+    return response.json();
+  },
+};
 
 export const scrapingApi = {
   startJob: async (data: {
