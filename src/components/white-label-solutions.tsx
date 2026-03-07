@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Download, ExternalLink, Code, Gamepad2, Smartphone, Monitor, Users, Zap, Star } from "lucide-react";
+import { ExternalLink, Code, Gamepad2, Monitor, Users, Zap, Star, LogIn, Swords } from "lucide-react";
+import { Link } from "wouter";
+import { useAuth } from "@/lib/auth";
 
 const gamingPlatforms = [
   {
@@ -11,10 +14,10 @@ const gamingPlatforms = [
     complexity: "Beginner Friendly",
     platforms: ["Web", "Mobile", "Desktop"],
     features: ["Drag & Drop", "Physics Engine", "Multiplayer", "Visual Scripting"],
-    downloadUrl: "/downloads/construct3-template.zip",
+    externalUrl: "https://www.construct.net/",
     demoUrl: "https://editor.construct.net/",
     image: "https://framerusercontent.com/images/RQWGh7f8Cnb8blhaJXengKND4Bw.png",
-    pricing: "Free Tier Available"
+    pricing: "Free Tier Available",
   },
   {
     name: "Buildbox",
@@ -23,10 +26,10 @@ const gamingPlatforms = [
     complexity: "Intermediate",
     platforms: ["iOS", "Android", "Desktop"],
     features: ["2D/3D Support", "Animations", "Effects", "Sound System"],
-    downloadUrl: "/downloads/buildbox-starter.zip",
+    externalUrl: "https://www.buildbox.com/",
     demoUrl: "https://www.buildbox.com/",
     image: "https://framerusercontent.com/images/c9Gh7XP4x4E6sMd2DeLSYdnLA.png",
-    pricing: "Subscription Model"
+    pricing: "Subscription Model",
   },
   {
     name: "GDevelop",
@@ -35,10 +38,10 @@ const gamingPlatforms = [
     complexity: "Beginner to Advanced",
     platforms: ["Web", "Mobile", "Desktop", "Console"],
     features: ["Visual Scripting", "Physics", "Particles", "Open Source"],
-    downloadUrl: "/downloads/gdevelop-template.zip",
+    externalUrl: "https://gdevelop.io/",
     demoUrl: "https://gdevelop.io/",
     image: "https://framerusercontent.com/images/3EjDBnc06ZqM2DalAwEiwBISOzc.png",
-    pricing: "Free & Open Source"
+    pricing: "Free & Open Source",
   },
   {
     name: "Stencyl",
@@ -47,10 +50,10 @@ const gamingPlatforms = [
     complexity: "Beginner Friendly",
     platforms: ["Web", "iOS", "Android", "Desktop"],
     features: ["Drag & Drop", "Physics", "Animations", "Cross-Platform"],
-    downloadUrl: "/downloads/stencyl-kit.zip",
+    externalUrl: "https://www.stencyl.com/",
     demoUrl: "https://www.stencyl.com/",
     image: "https://framerusercontent.com/images/osFEtXrggbbUFT2PcLhEKwtKw.png",
-    pricing: "Free for Web Publishing"
+    pricing: "Free for Web Publishing",
   },
   {
     name: "Gamefroot",
@@ -59,10 +62,10 @@ const gamingPlatforms = [
     complexity: "Beginner",
     platforms: ["Web", "Mobile"],
     features: ["Visual Interface", "Animations", "Effects", "Cloud Based"],
-    downloadUrl: "/downloads/gamefroot-starter.zip",
+    externalUrl: "https://make.gamefroot.com/",
     demoUrl: "https://make.gamefroot.com/",
     image: "https://framerusercontent.com/images/MDv2na8OgL3K1uWIO03HB27xCmU.jpeg",
-    pricing: "Free Tier Available"
+    pricing: "Free Tier Available",
   },
   {
     name: "Yahaha Studios",
@@ -71,10 +74,10 @@ const gamingPlatforms = [
     complexity: "Beginner Friendly",
     platforms: ["Mobile", "Web", "VR"],
     features: ["No Code Required", "3D Support", "Social Features", "VR Ready"],
-    downloadUrl: "/downloads/yahaha-template.zip",
-    demoUrl: "https://www.yahaha.com/",
+    externalUrl: "https://yahaha.com/",
+    demoUrl: "https://yahaha.com/",
     image: "https://framerusercontent.com/images/eKkVfcsfk3DfPJ0dLoklf2yAQw.png",
-    pricing: "Free to Start"
+    pricing: "Free to Start",
   },
   {
     name: "RPG Maker",
@@ -83,45 +86,67 @@ const gamingPlatforms = [
     complexity: "Intermediate",
     platforms: ["PC", "Console", "Mobile"],
     features: ["RPG Templates", "Story Editor", "Character Creation", "Battle Systems"],
-    downloadUrl: "/downloads/rpgmaker-assets.zip",
+    externalUrl: "https://www.rpgmakerweb.com/",
     demoUrl: "https://www.rpgmakerweb.com/",
     image: "https://framerusercontent.com/images/YX9i3N9waLZ4JydRrYz5jum2W5o.png",
-    pricing: "One-time Purchase"
-  }
+    pricing: "One-time Purchase",
+  },
 ];
 
-const complexityColors = {
+const complexityColors: Record<string, string> = {
   "Beginner": "bg-green-100 text-green-800",
   "Beginner Friendly": "bg-green-100 text-green-800",
   "Intermediate": "bg-yellow-100 text-yellow-800",
-  "Beginner to Advanced": "bg-blue-100 text-blue-800"
+  "Beginner to Advanced": "bg-blue-100 text-blue-800",
 };
 
 export default function WhiteLabelSolutions() {
-  const handleDownload = (platformName: string, downloadUrl: string) => {
-    // In a real implementation, this would trigger an actual download
-    console.log(`Downloading ${platformName} from ${downloadUrl}`);
-    
-    // Create a mock download experience
-    const link = document.createElement('a');
-    link.href = downloadUrl;
-    link.download = `${platformName.toLowerCase().replace(/\s+/g, '-')}-template.zip`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const { isAuthenticated } = useAuth();
+  const [showLogin, setShowLogin] = useState(false);
+
+  const handleLaunch = (url: string) => {
+    if (!isAuthenticated) {
+      setShowLogin(true);
+      return;
+    }
+    window.open(url, "_blank", "noopener");
   };
 
   return (
     <section className="py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900">
+      {/* Login prompt overlay */}
+      {showLogin && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60" onClick={() => setShowLogin(false)}>
+          <Card className="max-w-md mx-4" onClick={(e) => e.stopPropagation()}>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <LogIn className="w-5 h-5" /> Sign In Required
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-muted-foreground">
+                Connect your Grudge Studio account to launch engines, access the Engine Launcher, and sync your Grudge Warlords progress.
+              </p>
+              <div className="flex gap-3">
+                <Link href="/">
+                  <Button className="bg-primary hover:bg-primary/90 text-foreground">Go to Login</Button>
+                </Link>
+                <Button variant="outline" onClick={() => setShowLogin(false)}>Maybe Later</Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <Badge className="bg-orange-500 text-white mb-4">White Label Solutions</Badge>
-          <h2 className="text-4xl font-bold text-white mb-6">
+          <Badge className="bg-primary text-foreground mb-4">White Label Solutions</Badge>
+          <h2 className="text-4xl font-bold text-foreground mb-6">
             No-Code Game Development Platforms
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Download ready-to-use templates and start creating games immediately. No coding required - 
-            just drag, drop, and deploy your ideas across multiple platforms.
+            Access curated game engines directly through Grudge Studio. Sign in to launch tools,
+            track your progress in Grudge Warlords, and deploy across multiple platforms.
           </p>
         </div>
 
@@ -130,89 +155,90 @@ export default function WhiteLabelSolutions() {
             <Card key={index} className="bg-gray-800/50 border-gray-700 hover:bg-gray-800/70 transition-all duration-300 group">
               <CardHeader className="pb-4">
                 <div className="relative overflow-hidden rounded-lg mb-4">
-                  <img 
-                    src={platform.image} 
+                  <img
+                    src={platform.image}
                     alt={platform.name}
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute top-3 right-3">
-                    <Badge className={complexityColors[platform.complexity as keyof typeof complexityColors]}>
+                    <Badge className={complexityColors[platform.complexity] ?? "bg-gray-100 text-gray-800"}>
                       {platform.complexity}
                     </Badge>
                   </div>
                 </div>
-                
-                <CardTitle className="text-xl text-white flex items-center justify-between">
+
+                <CardTitle className="text-xl text-foreground flex items-center justify-between">
                   {platform.name}
                   <div className="flex items-center space-x-1">
-                    <Star className="w-4 h-4 text-orange-400 fill-current" />
-                    <Star className="w-4 h-4 text-orange-400 fill-current" />
-                    <Star className="w-4 h-4 text-orange-400 fill-current" />
-                    <Star className="w-4 h-4 text-orange-400 fill-current" />
-                    <Star className="w-4 h-4 text-gray-400" />
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className={`w-4 h-4 ${i < 4 ? "text-gold-light fill-current" : "text-muted-foreground"}`} />
+                    ))}
                   </div>
                 </CardTitle>
-                
-                <Badge variant="outline" className="border-orange-400 text-orange-400 w-fit">
+
+                <Badge variant="outline" className="border-orange-400 text-gold-light w-fit">
                   {platform.category}
                 </Badge>
               </CardHeader>
-              
+
               <CardContent className="space-y-4">
                 <p className="text-gray-300 text-sm leading-relaxed">
                   {platform.description}
                 </p>
-                
+
                 <div className="space-y-3">
                   <div>
-                    <h4 className="text-white font-medium mb-2 flex items-center">
-                      <Monitor className="w-4 h-4 mr-2 text-orange-400" />
+                    <h4 className="text-foreground font-medium mb-2 flex items-center">
+                      <Monitor className="w-4 h-4 mr-2 text-gold-light" />
                       Supported Platforms
                     </h4>
                     <div className="flex flex-wrap gap-2">
-                      {platform.platforms.map((platformType, idx) => (
+                      {platform.platforms.map((pt, idx) => (
                         <Badge key={idx} variant="secondary" className="bg-gray-700 text-gray-300">
-                          {platformType}
+                          {pt}
                         </Badge>
                       ))}
                     </div>
                   </div>
-                  
+
                   <div>
-                    <h4 className="text-white font-medium mb-2 flex items-center">
-                      <Zap className="w-4 h-4 mr-2 text-orange-400" />
+                    <h4 className="text-foreground font-medium mb-2 flex items-center">
+                      <Zap className="w-4 h-4 mr-2 text-gold-light" />
                       Key Features
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {platform.features.map((feature, idx) => (
-                        <Badge key={idx} variant="outline" className="border-gray-600 text-gray-400 text-xs">
+                        <Badge key={idx} variant="outline" className="border-gray-600 text-muted-foreground text-xs">
                           {feature}
                         </Badge>
                       ))}
                     </div>
                   </div>
-                  
+
                   <div className="bg-gray-700/30 rounded-lg p-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-400">Pricing:</span>
+                      <span className="text-sm text-muted-foreground">Pricing:</span>
                       <span className="text-sm font-medium text-green-400">{platform.pricing}</span>
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="flex space-x-2 pt-4">
-                  <Button 
-                    className="flex-1 bg-orange-500 text-white hover:bg-orange-600"
-                    onClick={() => handleDownload(platform.name, platform.downloadUrl)}
+                  <Button
+                    className="flex-1 bg-primary text-foreground hover:bg-primary/90"
+                    onClick={() => handleLaunch(platform.externalUrl)}
                   >
-                    <Download className="w-4 h-4 mr-2" />
-                    Download
+                    {isAuthenticated ? (
+                      <><ExternalLink className="w-4 h-4 mr-2" />Launch</>
+                    ) : (
+                      <><LogIn className="w-4 h-4 mr-2" />Sign In</>
+                    )}
                   </Button>
-                  
-                  <Button 
-                    variant="outline" 
+
+                  <Button
+                    variant="outline"
                     className="border-gray-600 text-gray-300 hover:bg-gray-700"
-                    onClick={() => window.open(platform.demoUrl, '_blank')}
+                    onClick={() => window.open(platform.demoUrl, "_blank", "noopener")}
                   >
                     <ExternalLink className="w-4 h-4" />
                   </Button>
@@ -225,41 +251,49 @@ export default function WhiteLabelSolutions() {
         <div className="bg-gray-800/30 rounded-2xl p-8 border border-gray-700">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="bg-orange-500/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Download className="w-8 h-8 text-orange-400" />
+              <div className="bg-primary/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <Swords className="w-8 h-8 text-gold-light" />
               </div>
-              <h3 className="text-xl font-semibold text-white mb-2">Instant Download</h3>
-              <p className="text-gray-400">
-                Get starter templates and assets immediately. No waiting, no setup complexity.
+              <h3 className="text-xl font-semibold text-foreground mb-2">Play & Create</h3>
+              <p className="text-muted-foreground">
+                Your Grudge Warlords heroes and arena stats travel with you across every Grudge Studio tool.
               </p>
             </div>
-            
+
             <div className="text-center">
-              <div className="bg-orange-500/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Code className="w-8 h-8 text-orange-400" />
+              <div className="bg-primary/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <Code className="w-8 h-8 text-gold-light" />
               </div>
-              <h3 className="text-xl font-semibold text-white mb-2">No Coding Required</h3>
-              <p className="text-gray-400">
+              <h3 className="text-xl font-semibold text-foreground mb-2">No Coding Required</h3>
+              <p className="text-muted-foreground">
                 Visual interfaces and drag-and-drop tools make game creation accessible to everyone.
               </p>
             </div>
-            
+
             <div className="text-center">
-              <div className="bg-orange-500/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Users className="w-8 h-8 text-orange-400" />
+              <div className="bg-primary/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <Users className="w-8 h-8 text-gold-light" />
               </div>
-              <h3 className="text-xl font-semibold text-white mb-2">Community Support</h3>
-              <p className="text-gray-400">
+              <h3 className="text-xl font-semibold text-foreground mb-2">Community Support</h3>
+              <p className="text-muted-foreground">
                 Join active communities and access tutorials, forums, and shared resources.
               </p>
             </div>
           </div>
-          
-          <div className="text-center mt-8">
-            <Button className="bg-orange-500 text-white hover:bg-orange-600 px-8 py-3">
-              <Gamepad2 className="w-5 h-5 mr-2" />
-              Start Creating Games Today
-            </Button>
+
+          <div className="text-center mt-8 space-x-4">
+            <Link href="/engine-launcher">
+              <Button className="bg-primary text-foreground hover:bg-primary/90 px-8 py-3">
+                <Gamepad2 className="w-5 h-5 mr-2" />
+                Open Engine Launcher
+              </Button>
+            </Link>
+            <a href="https://grudgewarlords.com" target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-700 px-8 py-3">
+                <Swords className="w-5 h-5 mr-2" />
+                Play Grudge Warlords
+              </Button>
+            </a>
           </div>
         </div>
       </div>
