@@ -36,11 +36,32 @@ export const config = {
   /** Grudge Platform — investment & community hub */
   GRUDGE_PLATFORM_URL: "https://www.grudgeplatform.com",
 
-  /** GitHub organization */
-  GITHUB_URL: "https://github.com/MolochDaGod",
+  /** Investors page */
+  INVEST_URL: "https://www.grudgeplatform.com/invest",
+
+  /** Nexus Nemesis TCG game */
+  NEXUS_TCG_URL: "https://www.grudgeplatform.io/",
+
+  /** Contact page */
+  CONTACT_URL: "https://grudgeplatform.com/contact",
+
+  /** GitHub — GrudgeDaDev */
+  GITHUB_URL: "https://github.com/grudgedadev",
+
+  /** GitHub — MolochDaDev */
+  GITHUB_MOLOCH_URL: "https://github.com/molochdadev",
 
   /** Discord community (update with real invite link) */
   DISCORD_URL: "https://discord.gg/grudgestudio",
+
+  /** LinkedIn */
+  LINKEDIN_URL: "https://www.linkedin.com/in/grudge-studio/",
+
+  /** Grudge Studio website */
+  WEBSITE_URL: "https://grudgestudio.com",
+
+  /** Contact email */
+  EMAIL: "grudgedev@gmail.com",
 
   /** Steam game page */
   STEAM_URL: "https://store.steampowered.com/app/2707990/Grudge/",
