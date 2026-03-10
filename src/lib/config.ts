@@ -52,7 +52,7 @@ export const config = {
   GITHUB_MOLOCH_URL: "https://github.com/molochdadev",
 
   /** Discord community */
-  DISCORD_URL: "https://discord.gg/grudgestudio",
+  DISCORD_URL: "https://discord.com/invite/grudgestudio",
 
   /** LinkedIn */
   LINKEDIN_URL: "https://www.linkedin.com/in/grudge-studio/",
