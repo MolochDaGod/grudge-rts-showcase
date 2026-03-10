@@ -5,63 +5,63 @@ import { ExternalLink, Calendar, Code, Gamepad2, Database, Globe, Zap, Bot, Shie
 
 const upcomingProjects = [
   {
-    title: "Advanced Web Scraper Pro",
-    description: "Next-generation web scraping platform with AI-powered data extraction and real-time monitoring capabilities.",
+    title: "GrudaChain Public Launch",
+    description: "On-chain systems for the Grudge ecosystem — Solana wallet integration via Web3Auth, token-gated access, and on-chain asset ownership for Grudge Warlords items.",
     status: "In Development",
-    technologies: ["Python", "AI/ML", "Real-time Processing"],
-    icon: Database,
-    category: "Data Solutions",
-    timeline: "Q2 2025",
+    technologies: ["Solana", "Web3Auth", "Smart Contracts"],
+    icon: Globe,
+    category: "Blockchain",
+    timeline: "Q2 2026",
     image: "https://framerusercontent.com/images/RQWGh7f8Cnb8blhaJXengKND4Bw.png"
   },
   {
-    title: "Blockchain Gaming Platform",
-    description: "Comprehensive gaming ecosystem with NFT integration, play-to-earn mechanics, and cross-chain compatibility.",
-    status: "Planning",
-    technologies: ["Blockchain", "Web3", "Gaming"],
-    icon: Gamepad2,
-    category: "Gaming & Blockchain",
-    timeline: "Q3 2025",
-    image: "https://framerusercontent.com/images/c9Gh7XP4x4E6sMd2DeLSYdnLA.png"
-  },
-  {
-    title: "AI-Powered Analytics Dashboard",
-    description: "Advanced business intelligence platform with predictive analytics and automated insights generation.",
-    status: "Research Phase",
-    technologies: ["AI/ML", "Analytics", "Dashboard"],
-    icon: Bot,
-    category: "AI Solutions",
-    timeline: "Q4 2025",
+    title: "3D Model Library Public API",
+    description: "Public REST API serving the 849+ indexed 3D models (GLB, FBX, OBJ) from GDevelop Assistant. Search, filter, stream, and integrate models into any game engine.",
+    status: "In Development",
+    technologies: ["REST API", "Three.js", "849+ Models"],
+    icon: Database,
+    category: "Developer Tools",
+    timeline: "Q2 2026",
     image: "https://framerusercontent.com/images/3EjDBnc06ZqM2DalAwEiwBISOzc.png"
   },
   {
-    title: "Decentralized Social Platform",
-    description: "Web3-native social network with tokenized interactions and community governance features.",
-    status: "Concept",
-    technologies: ["Web3", "Social", "DeFi"],
-    icon: Users,
-    category: "Social & Web3",
-    timeline: "2026",
-    image: "https://framerusercontent.com/images/osFEtXrggbbUFT2PcLhEKwtKw.png"
+    title: "Grudge Warlords Mobile",
+    description: "Mobile-optimized client for Grudge Warlords MMO — touch controls, responsive UI, offline island management, and cross-platform account sync.",
+    status: "Planning",
+    technologies: ["React Native", "Mobile", "Cross-Platform"],
+    icon: Gamepad2,
+    category: "Mobile Gaming",
+    timeline: "Q3 2026",
+    image: "https://framerusercontent.com/images/kqJNnjGgAUImwuaX1RZZWjFMc.png"
   },
   {
-    title: "Enterprise Security Suite",
-    description: "Comprehensive cybersecurity solution with threat detection, blockchain security, and API protection.",
-    status: "Planning",
-    technologies: ["Security", "Blockchain", "API"],
+    title: "AI Agent Service v2",
+    description: "Specialized AI agents for game development — code generation, art direction, lore writing, balance tuning, QA testing, and mission design for Grudge Warlords.",
+    status: "Early Development",
+    technologies: ["AI Agents", "LLM", "Game Dev"],
+    icon: Bot,
+    category: "AI Platform",
+    timeline: "Q3 2026",
+    image: "https://framerusercontent.com/images/c9Gh7XP4x4E6sMd2DeLSYdnLA.png"
+  },
+  {
+    title: "Grudge Studio Marketplace",
+    description: "Creator marketplace for game assets, templates, mods, and services. Integrated with Grudge auth, GrudaChain payments, and the 3D model library.",
+    status: "Concept",
+    technologies: ["Marketplace", "Payments", "Creator Economy"],
     icon: Shield,
-    category: "Security Solutions",
-    timeline: "Q3 2025",
+    category: "Commerce",
+    timeline: "Q4 2026",
     image: "https://framerusercontent.com/images/MDv2na8OgL3K1uWIO03HB27xCmU.jpeg"
   },
   {
-    title: "Real-time Collaboration Tools",
-    description: "Advanced workspace platform with real-time collaboration, project management, and integration capabilities.",
-    status: "Early Development",
-    technologies: ["Real-time", "Collaboration", "SaaS"],
-    icon: Zap,
-    category: "Productivity Tools",
-    timeline: "Q2 2025",
+    title: "Grudge Warlords Mod SDK",
+    description: "Official modding toolkit for Grudge Warlords — custom islands, new factions, weapon types, AI behaviors, and community content pipeline.",
+    status: "Planning",
+    technologies: ["SDK", "Modding", "Community"],
+    icon: Code,
+    category: "Developer Tools",
+    timeline: "2027",
     image: "https://framerusercontent.com/images/eKkVfcsfk3DfPJ0dLoklf2yAQw.png"
   }
 ];
@@ -130,8 +130,9 @@ export default function UpcomingProjects() {
                       variant="outline" 
                       size="sm"
                       className="text-orange-400 border-orange-400 hover:bg-orange-400 hover:text-black"
+                      onClick={() => window.open('https://discord.gg/grudgestudio', '_blank')}
                     >
-                      Learn More
+                      Follow Progress
                       <ExternalLink className="w-4 h-4 ml-2" />
                     </Button>
                   </div>
@@ -145,8 +146,11 @@ export default function UpcomingProjects() {
           <p className="text-gray-400 mb-6">
             Interested in collaborating on any of these projects or have a custom solution in mind?
           </p>
-          <Button className="bg-orange-500 text-white hover:bg-orange-600 px-8 py-3">
-            Discuss Your Project
+          <Button 
+            className="bg-orange-500 text-white hover:bg-orange-600 px-8 py-3"
+            onClick={() => window.open('https://discord.gg/grudgestudio', '_blank')}
+          >
+            Join the Discussion
           </Button>
         </div>
       </div>

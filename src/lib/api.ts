@@ -63,13 +63,23 @@ export const scrapingApi = {
     crawlDepth: number;
     outputFormat: string;
   }): Promise<ScrapingJob> => {
-    const response = await apiRequest("POST", "/api/scraping/start", data);
-    return response.json();
+    try {
+      const response = await apiRequest("POST", "/api/scraping/start", data);
+      return response.json();
+    } catch (e) {
+      console.warn("[scrapingApi] startJob unavailable:", (e as Error).message);
+      throw e;
+    }
   },
 
   getJobs: async (): Promise<ScrapingJob[]> => {
-    const response = await apiRequest("GET", "/api/scraping/jobs");
-    return response.json();
+    try {
+      const response = await apiRequest("GET", "/api/scraping/jobs");
+      return response.json();
+    } catch {
+      console.warn("[scrapingApi] getJobs unavailable, returning empty");
+      return [];
+    }
   },
 
   getJob: async (id: number): Promise<ScrapingJob> => {
@@ -85,8 +95,13 @@ export const scrapingApi = {
 
 export const storeApi = {
   getProducts: async (): Promise<StoreProduct[]> => {
-    const response = await apiRequest("GET", "/api/store/products");
-    return response.json();
+    try {
+      const response = await apiRequest("GET", "/api/store/products");
+      return response.json();
+    } catch {
+      console.warn("[storeApi] getProducts unavailable, returning empty");
+      return [];
+    }
   },
 
   getProduct: async (id: number): Promise<StoreProduct> => {
@@ -106,7 +121,12 @@ export const storeApi = {
   },
 
   getOrders: async (): Promise<Order[]> => {
-    const response = await apiRequest("GET", "/api/store/orders");
-    return response.json();
+    try {
+      const response = await apiRequest("GET", "/api/store/orders");
+      return response.json();
+    } catch {
+      console.warn("[storeApi] getOrders unavailable, returning empty");
+      return [];
+    }
   },
 };

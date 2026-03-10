@@ -16,8 +16,8 @@ export default function Hero() {
           Full Custom Solutions<br />Beyond <span className="text-orange-300">⚛</span> Limits
         </h1>
         <p className="text-xl text-indigo-100 mb-8 max-w-3xl mx-auto">
-          Cutting-Edge Tech & Design services at your fingertips. Development at the speed of thought. 
-          From MMO Game Development to cutting-edge blockchain technology.
+          Powering Grudge Warlords MMO, GDevelop Assistant, GrudaChain, and 849+ indexed 3D models.
+          From live game servers to blockchain integration — real tools, real games, real ecosystem.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link href="/advantage">

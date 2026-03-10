@@ -6,14 +6,29 @@ import { ExternalLink, Gamepad2, Star, Users, Trophy, Smartphone, Monitor } from
 
 const games = [
   {
+    title: "Grudge Warlords",
+    subtitle: "Live MMO — grudgewarlords.com",
+    description: "The flagship Grudge MMO with 4 races (Human, Elf, Worge, Piglin), 4 classes (Warrior, Mage, Ranger, Worge), island-based factions, AI crew companions, arena PvP, and souls-like combat.",
+    steamUrl: undefined,
+    platformUrl: "https://grudgewarlords.com",
+    platforms: ["Web", "Cloud"],
+    features: ["4 Races & Classes", "AI Factions", "Arena PvP", "Souls-like Combat"],
+    status: "Live Now",
+    image: "https://framerusercontent.com/images/kqJNnjGgAUImwuaX1RZZWjFMc.png",
+    improvements: {
+      mobile: "Mobile client in development with touch-optimized combat",
+      playability: "Dynamic AI crews, permadeath mechanics, and faction progression"
+    }
+  },
+  {
     title: "Grudge",
     subtitle: "Steam Release",
-    description: "Our flagship game available on Steam with immersive gameplay, strategic combat, and rich storytelling. Experience the ultimate gaming adventure with enhanced graphics and multiplayer features.",
+    description: "Our flagship game on Steam with immersive gameplay, strategic combat, and rich storytelling. Enhanced graphics and multiplayer features.",
     steamUrl: "https://store.steampowered.com/app/2707990/Grudge/",
     platforms: ["PC", "Steam"],
     features: ["Single Player", "Multiplayer", "Steam Achievements", "Cloud Saves"],
     status: "Available Now",
-    image: "https://framerusercontent.com/images/kqJNnjGgAUImwuaX1RZZWjFMc.png",
+    image: "https://framerusercontent.com/images/YX9i3N9waLZ4JydRrYz5jum2W5o.png",
     improvements: {
       mobile: "Enhanced touch controls and optimized UI for mobile devices",
       playability: "Streamlined mechanics and improved user experience"
@@ -22,12 +37,12 @@ const games = [
   {
     title: "Tower Defense",
     subtitle: "Grudge Platform Exclusive",
-    description: "Strategic tower defense game featuring 8 unique tower types, wave-based gameplay, and 3D graphics. Built for both desktop and mobile platforms.",
+    description: "Strategic tower defense with 8 unique tower types, wave-based gameplay, and 3D graphics. Built for both desktop and mobile.",
     platformUrl: "/tower-defense",
     platforms: ["Web", "Mobile", "Desktop"],
-    features: ["Strategic Gameplay", "8 Tower Types", "20 Waves", "Cross-Platform"],
-    status: "Enhanced Version",
-    image: "https://framerusercontent.com/images/YX9i3N9waLZ4JydRrYz5jum2W5o.png",
+    features: ["8 Tower Types", "20 Waves", "3D Graphics", "Cross-Platform"],
+    status: "Playable Now",
+    image: "https://framerusercontent.com/images/Lp3Ng0LfDz7uZD3T3bDgsjuM8.png",
     improvements: {
       mobile: "Responsive design with touch-optimized controls",
       playability: "Balanced tower mechanics and wave progression"
@@ -67,7 +82,7 @@ export default function GamingShowcase() {
           <p className="text-xl text-gray-300">Our flagship games with enhanced playability and mobile optimization</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
           {games.map((game, index) => (
             <motion.div
               key={index}
@@ -202,14 +217,21 @@ export default function GamingShowcase() {
           <div className="bg-gradient-to-r from-orange-500/20 to-purple-500/20 border border-orange-500/30 rounded-2xl p-8">
             <h3 className="text-2xl font-bold mb-4">Ready to Experience Our Games?</h3>
             <p className="text-lg text-gray-300 mb-6">
-              Join thousands of players in our immersive gaming experiences across multiple platforms
+              Join the Grudge ecosystem — play Grudge Warlords, compete in arena PvP, and create with our game dev tools
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 className="bg-orange-500 text-white hover:bg-orange-600"
+                onClick={() => window.open('https://grudgewarlords.com', '_blank')}
+              >
+                Play Grudge Warlords
+              </Button>
+              <Button 
+                variant="outline" 
+                className="border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-black"
                 onClick={() => window.open('https://store.steampowered.com/app/2707990/Grudge/', '_blank')}
               >
-                Play on Steam
+                Grudge on Steam
               </Button>
               <Button 
                 variant="outline" 

@@ -2,34 +2,35 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Gamepad2, Rocket, Zap } from "lucide-react";
+import { Link } from "wouter";
 
 const projects = [
   {
-    title: "Grudge",
-    description: "Our flagship Steam game featuring immersive gameplay, strategic combat mechanics, and rich storytelling. Available now on Steam with enhanced mobile optimization.",
-    image: "https://framerusercontent.com/images/Lp3Ng0LfDz7uZD3T3bDgsjuM8.png",
-    technologies: ["Steam Game", "PC Gaming", "Mobile Ready"],
+    title: "Grudge Warlords",
+    description: "Live MMO featuring 4 races, 4 classes, island-based factions, AI companions, arena PvP, and a souls-like combat system. Built on Node.js with Puter cloud.",
+    image: "https://framerusercontent.com/images/kqJNnjGgAUImwuaX1RZZWjFMc.png",
+    technologies: ["Live MMO", "4 Races & Classes", "AI Factions"],
     icon: Gamepad2,
+    category: "Live Game",
+    link: "https://grudgewarlords.com"
+  },
+  {
+    title: "Grudge on Steam",
+    description: "Our flagship Steam release with immersive gameplay, strategic combat, and rich storytelling. Available now with enhanced graphics and multiplayer.",
+    image: "https://framerusercontent.com/images/Lp3Ng0LfDz7uZD3T3bDgsjuM8.png",
+    technologies: ["Steam", "PC Gaming", "Multiplayer"],
+    icon: Zap,
     category: "Published Game",
     link: "https://store.steampowered.com/app/2707990/Grudge/"
   },
   {
-    title: "Tower Defense",
-    description: "Strategic tower defense game with 8 tower types, wave-based gameplay, and optimized touch controls for seamless gaming experience.",
-    image: "https://framerusercontent.com/images/Lp3Ng0LfDz7uZD3T3bDgsjuM8.png",
-    technologies: ["Web Platform", "Mobile Optimized", "Cross-Platform"],
-    icon: Zap,
-    category: "Gaming Platform",
-    link: "/tower-defense"
-  },
-  {
-    title: "Grudge Platform",
-    description: "Comprehensive investment and gaming ecosystem connecting investors with innovative gaming projects and blockchain technology opportunities.",
-    image: "https://framerusercontent.com/images/Lp3Ng0LfDz7uZD3T3bDgsjuM8.png",
-    technologies: ["Investment Platform", "Blockchain", "Community"],
+    title: "GDevelop Assistant",
+    description: "Game dev toolkit with character editor, 3D model library (849+ indexed models), asset pipeline, and AI-assisted tagging across GLB, FBX, OBJ formats.",
+    image: "https://framerusercontent.com/images/3EjDBnc06ZqM2DalAwEiwBISOzc.png",
+    technologies: ["3D Models", "Character Editor", "Asset API"],
     icon: Rocket,
-    category: "Investment Platform",
-    link: "https://www.grudgeplatform.com/invest"
+    category: "Dev Platform",
+    link: "https://gdevelop-assistant.vercel.app"
   }
 ];
 
@@ -89,8 +90,9 @@ export default function Projects() {
                     onClick={() => window.open(project.link, '_blank')}
                   >
                     <ExternalLink className="w-4 h-4 mr-2" />
-                    {project.category === "Published Game" ? "Play on Steam" : 
-                     project.category === "Gaming Platform" ? "Try Platform" : "Learn More"}
+                    {project.category === "Live Game" ? "Play Now" :
+                     project.category === "Published Game" ? "Play on Steam" :
+                     project.category === "Dev Platform" ? "Open App" : "Learn More"}
                   </Button>
                 </CardContent>
               </Card>
@@ -99,12 +101,14 @@ export default function Projects() {
         </div>
         
         <div className="text-center mt-12">
-          <Button 
-            size="lg" 
-            className="bg-orange-500 text-white hover:bg-orange-600 px-8 py-3"
-          >
-            View All Projects
-          </Button>
+          <Link href="/super-engine">
+            <Button 
+              size="lg" 
+              className="bg-orange-500 text-white hover:bg-orange-600 px-8 py-3"
+            >
+              View All Projects
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

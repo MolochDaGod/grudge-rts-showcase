@@ -8,28 +8,17 @@ import { useAuth } from "@/lib/auth";
 
 const gamingPlatforms = [
   {
-    name: "Construct 3",
-    description: "Web-based no-code game engine with drag-and-drop interface for 2D games. Features physics engines, pathfinding, and multiplayer support.",
-    category: "2D Game Development",
-    complexity: "Beginner Friendly",
-    platforms: ["Web", "Mobile", "Desktop"],
-    features: ["Drag & Drop", "Physics Engine", "Multiplayer", "Visual Scripting"],
-    externalUrl: "https://www.construct.net/",
-    demoUrl: "https://editor.construct.net/",
-    image: "https://framerusercontent.com/images/RQWGh7f8Cnb8blhaJXengKND4Bw.png",
-    pricing: "Free Tier Available",
-  },
-  {
-    name: "Buildbox",
-    description: "Visual no-code game engine for creating 2D and 3D games. Includes animations, effects, and comprehensive sound systems.",
-    category: "2D/3D Game Development",
-    complexity: "Intermediate",
-    platforms: ["iOS", "Android", "Desktop"],
-    features: ["2D/3D Support", "Animations", "Effects", "Sound System"],
-    externalUrl: "https://www.buildbox.com/",
-    demoUrl: "https://www.buildbox.com/",
-    image: "https://framerusercontent.com/images/c9Gh7XP4x4E6sMd2DeLSYdnLA.png",
-    pricing: "Subscription Model",
+    name: "GDevelop Assistant",
+    description: "Grudge Studio's own game dev toolkit — character editor, 3D model library with 849+ indexed assets (GLB, FBX, OBJ), AI-assisted tagging, and asset pipeline.",
+    category: "Grudge Native",
+    complexity: "All Levels",
+    platforms: ["Web", "API"],
+    features: ["849+ 3D Models", "Character Editor", "AI Tagging", "Asset API"],
+    externalUrl: "https://gdevelop-assistant.vercel.app",
+    demoUrl: "https://gdevelop-assistant.vercel.app/character-editor",
+    image: "https://framerusercontent.com/images/3EjDBnc06ZqM2DalAwEiwBISOzc.png",
+    pricing: "Free — Grudge Ecosystem",
+    isGrudgeNative: true,
   },
   {
     name: "GDevelop",
@@ -40,36 +29,26 @@ const gamingPlatforms = [
     features: ["Visual Scripting", "Physics", "Particles", "Open Source"],
     externalUrl: "https://gdevelop.io/",
     demoUrl: "https://gdevelop.io/",
-    image: "https://framerusercontent.com/images/3EjDBnc06ZqM2DalAwEiwBISOzc.png",
+    image: "https://framerusercontent.com/images/RQWGh7f8Cnb8blhaJXengKND4Bw.png",
     pricing: "Free & Open Source",
+    isGrudgeNative: false,
   },
   {
-    name: "Stencyl",
-    description: "Drag-and-drop game creation platform with physics engines, animation tools, and integrated sound support for 2D games.",
+    name: "Construct 3",
+    description: "Web-based no-code game engine with drag-and-drop interface for 2D games. Physics engines, pathfinding, and multiplayer support.",
     category: "2D Game Development",
     complexity: "Beginner Friendly",
-    platforms: ["Web", "iOS", "Android", "Desktop"],
-    features: ["Drag & Drop", "Physics", "Animations", "Cross-Platform"],
-    externalUrl: "https://www.stencyl.com/",
-    demoUrl: "https://www.stencyl.com/",
-    image: "https://framerusercontent.com/images/osFEtXrggbbUFT2PcLhEKwtKw.png",
-    pricing: "Free for Web Publishing",
-  },
-  {
-    name: "Gamefroot",
-    description: "Visual game development platform for 2D games with built-in animations, effects, and sound systems.",
-    category: "2D Game Development",
-    complexity: "Beginner",
-    platforms: ["Web", "Mobile"],
-    features: ["Visual Interface", "Animations", "Effects", "Cloud Based"],
-    externalUrl: "https://make.gamefroot.com/",
-    demoUrl: "https://make.gamefroot.com/",
-    image: "https://framerusercontent.com/images/MDv2na8OgL3K1uWIO03HB27xCmU.jpeg",
+    platforms: ["Web", "Mobile", "Desktop"],
+    features: ["Drag & Drop", "Physics Engine", "Multiplayer", "Visual Scripting"],
+    externalUrl: "https://www.construct.net/",
+    demoUrl: "https://editor.construct.net/",
+    image: "https://framerusercontent.com/images/c9Gh7XP4x4E6sMd2DeLSYdnLA.png",
     pricing: "Free Tier Available",
+    isGrudgeNative: false,
   },
   {
     name: "Yahaha Studios",
-    description: "Anyone can make a game with no coding skills required. User-friendly platform for creating interactive experiences.",
+    description: "Anyone can make a game with no coding skills required. User-friendly platform for creating interactive 3D experiences.",
     category: "3D Game Development",
     complexity: "Beginner Friendly",
     platforms: ["Mobile", "Web", "VR"],
@@ -78,6 +57,7 @@ const gamingPlatforms = [
     demoUrl: "https://yahaha.com/",
     image: "https://framerusercontent.com/images/eKkVfcsfk3DfPJ0dLoklf2yAQw.png",
     pricing: "Free to Start",
+    isGrudgeNative: false,
   },
   {
     name: "RPG Maker",
@@ -90,6 +70,20 @@ const gamingPlatforms = [
     demoUrl: "https://www.rpgmakerweb.com/",
     image: "https://framerusercontent.com/images/YX9i3N9waLZ4JydRrYz5jum2W5o.png",
     pricing: "One-time Purchase",
+    isGrudgeNative: false,
+  },
+  {
+    name: "Stencyl",
+    description: "Drag-and-drop game creation platform with physics engines, animation tools, and integrated sound support for 2D games.",
+    category: "2D Game Development",
+    complexity: "Beginner Friendly",
+    platforms: ["Web", "iOS", "Android", "Desktop"],
+    features: ["Drag & Drop", "Physics", "Animations", "Cross-Platform"],
+    externalUrl: "https://www.stencyl.com/",
+    demoUrl: "https://www.stencyl.com/",
+    image: "https://framerusercontent.com/images/osFEtXrggbbUFT2PcLhEKwtKw.png",
+    pricing: "Free for Web Publishing",
+    isGrudgeNative: false,
   },
 ];
 
@@ -98,6 +92,7 @@ const complexityColors: Record<string, string> = {
   "Beginner Friendly": "bg-green-100 text-green-800",
   "Intermediate": "bg-yellow-100 text-yellow-800",
   "Beginner to Advanced": "bg-blue-100 text-blue-800",
+  "All Levels": "bg-orange-100 text-orange-800",
 };
 
 export default function WhiteLabelSolutions() {
@@ -140,13 +135,13 @@ export default function WhiteLabelSolutions() {
 
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <Badge className="bg-primary text-foreground mb-4">White Label Solutions</Badge>
+          <Badge className="bg-primary text-foreground mb-4">Engine Partners & Integrations</Badge>
           <h2 className="text-4xl font-bold text-foreground mb-6">
-            No-Code Game Development Platforms
+            Game Development Tools
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Access curated game engines directly through Grudge Studio. Sign in to launch tools,
-            track your progress in Grudge Warlords, and deploy across multiple platforms.
+            Grudge-native tools and curated external engine partners. Sign in to launch tools,
+            sync your Grudge Warlords progress, and deploy across multiple platforms.
           </p>
         </div>
 
@@ -160,7 +155,16 @@ export default function WhiteLabelSolutions() {
                     alt={platform.name}
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute top-3 right-3">
+                  <div className="absolute top-3 right-3 flex gap-2">
+                    {(platform as any).isGrudgeNative ? (
+                      <Badge className="bg-orange-500 text-white">
+                        Grudge Native
+                      </Badge>
+                    ) : (
+                      <Badge className="bg-gray-600 text-gray-200">
+                        External Tool
+                      </Badge>
+                    )}
                     <Badge className={complexityColors[platform.complexity] ?? "bg-gray-100 text-gray-800"}>
                       {platform.complexity}
                     </Badge>

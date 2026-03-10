@@ -1,4 +1,6 @@
 import { Link } from "wouter";
+import { config } from "@/lib/config";
+import { Github, MessageCircle } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -10,17 +12,14 @@ export default function Footer() {
               Grudge<span className="text-primary">Studio</span>
             </h3>
             <p className="text-gray-400 mb-6">
-              Revolutionary game development platform empowering creators with cutting-edge collaboration tools.
+              Game development ecosystem powering Grudge Warlords, GDevelop Assistant, and GrudaChain with real tools for real creators.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <i className="fab fa-twitter"></i>
+              <a href={config.GITHUB_URL} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+                <Github className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <i className="fab fa-github"></i>
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <i className="fab fa-linkedin"></i>
+              <a href={config.DISCORD_URL} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+                <MessageCircle className="w-5 h-5" />
               </a>
             </div>
           </div>
@@ -32,76 +31,76 @@ export default function Footer() {
                 <Link href="/scraping" className="hover:text-white transition-colors">Development Tools</Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  API Access
+                <a href={config.GDEVELOP_ASSISTANT_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                  GDevelop Assistant
                 </a>
               </li>
               <li>
-                <Link href="/store" className="hover:text-white transition-colors">Game Assets</Link>
+                <Link href="/asset-store" className="hover:text-white transition-colors">Asset Store</Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Enterprise
+                <Link href="/advantage" className="hover:text-white transition-colors">
+                  Grudge Advantage
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-4">Ecosystem</h4>
+            <ul className="space-y-2 text-gray-400">
+              <li>
+                <a href={config.GRUDGE_WARLORDS_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                  Grudge Warlords
+                </a>
+              </li>
+              <li>
+                <a href={config.GRUDACHAIN_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                  GrudaChain
+                </a>
+              </li>
+              <li>
+                <a href={config.STEAM_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                  Grudge on Steam
+                </a>
+              </li>
+              <li>
+                <a href={config.GRUDGE_PLATFORM_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                  Grudge Platform
                 </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4">Resources</h4>
+            <h4 className="font-semibold mb-4">Community</h4>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Documentation
+                <a href={config.DISCORD_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                  Discord
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  API Reference
+                <a href={config.GITHUB_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                  GitHub
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Tutorials
+                <a href={`${config.GRUDGE_WARLORDS_URL}/api/health`} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                  Server Status
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Blog
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-semibold mb-4">Support</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Help Center
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Contact Us
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Status
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Privacy Policy
-                </a>
+                <Link href="/advantage" className="hover:text-white transition-colors">
+                  About
+                </Link>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-          <p>&copy; 2026 Grudge Studio. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Grudge Studio. All rights reserved.</p>
         </div>
       </div>
     </footer>

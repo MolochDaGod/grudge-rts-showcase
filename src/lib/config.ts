@@ -22,6 +22,29 @@ export const config = {
     import.meta.env.VITE_DISCORD_REDIRECT_URI ||
     "https://grudge-builder-auth.vercel.app/api/discord",
 
+  // ─── Grudge Ecosystem URLs ───────────────────────────────
+
+  /** Grudge Warlords — the MMO game */
+  GRUDGE_WARLORDS_URL: "https://grudgewarlords.com",
+
+  /** GDevelop Assistant — character editor, 3D model library, asset pipeline */
+  GDEVELOP_ASSISTANT_URL: "https://gdevelop-assistant.vercel.app",
+
+  /** GrudaChain — blockchain / on-chain systems */
+  GRUDACHAIN_URL: "https://grudachain.grudgestudio.com",
+
+  /** Grudge Platform — investment & community hub */
+  GRUDGE_PLATFORM_URL: "https://www.grudgeplatform.com",
+
+  /** GitHub organization */
+  GITHUB_URL: "https://github.com/MolochDaGod",
+
+  /** Discord community (update with real invite link) */
+  DISCORD_URL: "https://discord.gg/grudgestudio",
+
+  /** Steam game page */
+  STEAM_URL: "https://store.steampowered.com/app/2707990/Grudge/",
+
   /** localStorage key names — match auth-gateway INTEGRATION.txt */
   STORAGE_KEYS: {
     AUTH_TOKEN: "grudge_auth_token",

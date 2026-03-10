@@ -24,12 +24,25 @@ interface EnhancedProjectGridProps {
 
 const enhancedProjects: Project[] = [
   {
+    id: 'grudge-warlords',
+    name: 'Grudge Warlords',
+    engine: 'Node.js + Puter',
+    type: 'MMO',
+    lastModified: 'Live',
+    size: 'Cloud',
+    thumbnail: '',
+    status: 'ready',
+    enhanced: true,
+    playable: true,
+    route: undefined,
+  },
+  {
     id: 'tower-defense',
     name: 'Tower Defense',
-    engine: 'Super Engine',
+    engine: 'Three.js',
     type: 'Strategy',
-    lastModified: '30 minutes ago',
-    size: '67MB',
+    lastModified: 'Live',
+    size: 'Web',
     thumbnail: '',
     status: 'ready',
     enhanced: true,
@@ -37,64 +50,12 @@ const enhancedProjects: Project[] = [
     route: '/tower-defense'
   },
   {
-    id: 'yahaha-3d-world',
-    name: 'Yahaha 3D World',
-    engine: 'Yahaha Studio',
-    type: '3D World',
-    lastModified: '15 minutes ago',
-    size: '124MB',
-    thumbnail: '',
-    status: 'ready',
-    enhanced: true,
-    playable: true,
-    route: '/yahaha-3d-world'
-  },
-  {
-    id: 'multiplayer-racing',
-    name: 'Racing Championship',
-    engine: 'Unity',
-    type: 'Racing',
-    lastModified: '45 minutes ago',
-    size: '98MB',
-    thumbnail: '',
-    status: 'ready',
-    enhanced: true,
-    playable: true,
-    route: '/multiplayer-racing'
-  },
-  {
-    id: 'puzzle-platformer',
-    name: 'Crystal Quest',
-    engine: 'Godot',
-    type: 'Platformer',
-    lastModified: '1 hour ago',
-    size: '76MB',
-    thumbnail: '',
-    status: 'ready',
-    enhanced: true,
-    playable: true,
-    route: '/puzzle-platformer'
-  },
-  {
-    id: 'rpg-studio',
-    name: 'Fantasy RPG Studio',
-    engine: 'RPG Maker',
-    type: 'RPG',
-    lastModified: '2 hours ago',
-    size: '145MB',
-    thumbnail: '',
-    status: 'ready',
-    enhanced: true,
-    playable: true,
-    route: '/rpg-maker-studio'
-  },
-  {
     id: 'avernus-3d',
     name: 'Avernus 3D PVP',
     engine: 'Three.js + ECS',
     type: 'Action',
-    lastModified: '1 hour ago',
-    size: '128MB',
+    lastModified: 'Live',
+    size: 'Web',
     thumbnail: '',
     status: 'ready',
     enhanced: true,
@@ -102,24 +63,64 @@ const enhancedProjects: Project[] = [
     route: '/avernus-3d'
   },
   {
-    id: 'space-shooter',
-    name: 'Space Shooter 3D',
-    engine: 'Construct3',
-    type: 'Arcade',
-    lastModified: '1 day ago',
-    size: '32MB',
+    id: 'wargus',
+    name: 'Wargus RTS',
+    engine: 'Canvas + Stratagus',
+    type: 'RTS',
+    lastModified: 'Live',
+    size: 'Web',
     thumbnail: '',
     status: 'ready',
-    enhanced: false,
-    playable: false
+    enhanced: true,
+    playable: true,
+    route: '/wargus'
   },
   {
-    id: 'puzzle-quest',
-    name: 'Puzzle Quest Builder',
-    engine: 'Buildbox',
-    type: 'Puzzle',
-    lastModified: '3 days ago',
-    size: '28MB',
+    id: 'gdevelop-assistant',
+    name: 'GDevelop Assistant',
+    engine: 'React + Three.js',
+    type: 'Dev Tool',
+    lastModified: 'Live',
+    size: '849 Models',
+    thumbnail: '',
+    status: 'ready',
+    enhanced: true,
+    playable: true,
+    route: undefined,
+  },
+  {
+    id: 'decay-survival',
+    name: 'Decay Survival',
+    engine: 'Three.js + cannon-es',
+    type: 'Survival',
+    lastModified: 'Live',
+    size: 'Web',
+    thumbnail: '',
+    status: 'ready',
+    enhanced: true,
+    playable: true,
+    route: '/decay-survival'
+  },
+  {
+    id: 'grudge-editor',
+    name: 'Grudge Editor',
+    engine: 'React + Three.js',
+    type: 'Editor',
+    lastModified: 'Live',
+    size: 'Web',
+    thumbnail: '',
+    status: 'ready',
+    enhanced: true,
+    playable: true,
+    route: '/grudge-editor'
+  },
+  {
+    id: 'grudachain',
+    name: 'GrudaChain',
+    engine: 'Solana + Web3Auth',
+    type: 'Blockchain',
+    lastModified: 'In Development',
+    size: 'Cloud',
     thumbnail: '',
     status: 'building',
     enhanced: false,
@@ -232,6 +233,24 @@ export default function EnhancedProjectGrid({ projects = enhancedProjects }: Enh
                       {project.enhanced ? 'Play Enhanced' : 'Play Game'}
                     </Button>
                   </Link>
+                ) : project.id === 'grudge-warlords' ? (
+                  <Button 
+                    className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white" 
+                    size="sm"
+                    onClick={() => window.open('https://grudgewarlords.com', '_blank')}
+                  >
+                    <Play className="w-4 h-4 mr-2" />
+                    Play Grudge Warlords
+                  </Button>
+                ) : project.id === 'gdevelop-assistant' ? (
+                  <Button 
+                    className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white" 
+                    size="sm"
+                    onClick={() => window.open('https://gdevelop-assistant.vercel.app', '_blank')}
+                  >
+                    <Play className="w-4 h-4 mr-2" />
+                    Open Assistant
+                  </Button>
                 ) : project.status === 'ready' ? (
                   <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white" size="sm">
                     <Play className="w-4 h-4 mr-2" />
