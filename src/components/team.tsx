@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Globe, MessageCircle } from "lucide-react";
+import { config } from "@/lib/config";
 
 const teamMembers = [
   {
@@ -8,18 +9,24 @@ const teamMembers = [
     role: "Lead Developer",
     image: "https://framerusercontent.com/images/6CC7mecL0FCGuCbZNDoA9prwI.jpg",
     description: "Leading development initiatives with expertise in gaming systems and blockchain technology.",
+    github: config.GITHUB_URL,
+    link: config.GRUDGE_WARLORDS_URL,
   },
   {
     name: "Scorge",
     role: "Creative Director",
     image: "https://framerusercontent.com/images/tayX5HnUIUYgGD7Hcs1zsxGAK8E.png",
     description: "Driving creative vision and ensuring exceptional user experiences across all projects.",
+    github: null,
+    link: config.GRUDGE_PLATFORM_URL,
   },
   {
     name: "FatalX3rror",
     role: "Head of BD & Strategic Partnerships",
     image: "https://framerusercontent.com/images/XVBd8JBlY22NA0oKlsdCppvu38.png",
     description: "Building strategic partnerships and expanding business development opportunities.",
+    github: null,
+    link: config.DISCORD_URL,
   }
 ];
 
@@ -55,14 +62,16 @@ export default function Team() {
                 </p>
                 
                 <div className="flex justify-center space-x-4">
-                  <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">
-                    <Twitter className="w-5 h-5" />
+                  {member.github && (
+                    <a href={member.github} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-500 transition-colors">
+                      <Github className="w-5 h-5" />
+                    </a>
+                  )}
+                  <a href={member.link || config.DISCORD_URL} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-500 transition-colors">
+                    <Globe className="w-5 h-5" />
                   </a>
-                  <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">
-                    <Linkedin className="w-5 h-5" />
-                  </a>
-                  <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">
-                    <Github className="w-5 h-5" />
+                  <a href={config.DISCORD_URL} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-orange-500 transition-colors">
+                    <MessageCircle className="w-5 h-5" />
                   </a>
                 </div>
               </CardContent>

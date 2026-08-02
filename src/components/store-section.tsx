@@ -10,13 +10,55 @@ import { Check, CreditCard } from "lucide-react";
 import type { StoreProduct } from "@/shared/schema";
 import PaymentForm from "./payment-form";
 
+// Fallback products when API is unavailable
+const fallbackProducts: StoreProduct[] = [
+  {
+    id: 1,
+    name: "Game Development Package",
+    description: "Full-stack game development services including design, coding, testing, and deployment for your custom game project.",
+    price: 49900,
+    image: "https://framerusercontent.com/images/kqJNnjGgAUImwuaX1RZZWjFMc.png",
+    category: "service",
+    features: ["Custom Game Design", "Cross-Platform Deploy", "3 Revision Rounds", "Source Code Included"],
+    active: true,
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: 2,
+    name: "3D Asset Pack — Pro",
+    description: "Curated pack of 100+ production-ready 3D models from the Grudge model library — characters, weapons, buildings, and props.",
+    price: 2900,
+    image: "https://framerusercontent.com/images/3EjDBnc06ZqM2DalAwEiwBISOzc.png",
+    category: "asset",
+    features: ["100+ GLB Models", "Game-Ready LODs", "Commercial License", "Grudge UUID Tagged"],
+    active: true,
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: 3,
+    name: "Grudge Premium Access",
+    description: "Premium tier across the Grudge ecosystem — priority access to Grudge Warlords features, GDevelop Assistant tools, and GrudaChain benefits.",
+    price: 999,
+    image: "https://framerusercontent.com/images/Lp3Ng0LfDz7uZD3T3bDgsjuM8.png",
+    category: "subscription",
+    features: ["Premium Warlords Features", "Priority Model API", "GrudaChain Benefits", "Discord VIP Role"],
+    active: true,
+    createdAt: new Date().toISOString(),
+  },
+];
+
 export default function StoreSection() {
   const { toast } = useToast();
   const [selectedProduct, setSelectedProduct] = useState<StoreProduct | null>(null);
 
-  const { data: products = [], isLoading } = useQuery<StoreProduct[]>({
+  const { data: apiProducts, isLoading, isError } = useQuery<StoreProduct[]>({
     queryKey: ["/api/store/products"],
+    retry: 1,
+    staleTime: 60_000,
   });
+
+  // Use API data if available, otherwise fall back to static products
+  const products = (apiProducts && apiProducts.length > 0) ? apiProducts : (isLoading ? [] : fallbackProducts);
 
   const createOrderMutation = useMutation({
     mutationFn: async (data: { customerEmail: string; productId: number; paymentMethod: string }) => {
@@ -64,7 +106,7 @@ export default function StoreSection() {
           <p className="text-xl text-gray-600">Professional development services and custom solutions</p>
         </div>
 
-        {isLoading ? (
+        {isLoading && !isError ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[1, 2, 3].map((i) => (
               <Card key={i} className="animate-pulse">

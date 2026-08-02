@@ -126,13 +126,15 @@ export default function Services() {
           <Button 
             size="lg" 
             className="bg-orange-500 text-white hover:bg-orange-600 px-8 py-3 mr-4"
+            onClick={() => window.open('https://discord.gg/grudgestudio', '_blank')}
           >
-            Book A Call
+            Join Our Discord
           </Button>
           <Button 
             size="lg" 
             variant="outline" 
             className="border-white text-white hover:bg-white hover:text-gray-900 px-8 py-3"
+            onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
           >
             View Portfolio
           </Button>
