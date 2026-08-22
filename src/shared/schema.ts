@@ -76,7 +76,7 @@ export interface AuthSession {
   expiresAt: number;
 }
 
-/** Shape returned by auth-gateway login/register/guest endpoints */
+/** Shape returned by Identity API login/register/guest endpoints */
 export interface AuthResponse {
   success: boolean;
   token: string;

@@ -66,7 +66,7 @@ function readStoredSession(): AuthSession | null {
   };
 }
 
-/** Parse OAuth callback params that the auth-gateway appends to the return URL */
+/** Parse OAuth callback params that the Identity API appends to the return URL */
 function parseOAuthCallback(): AuthSession | null {
   const params = new URLSearchParams(window.location.search);
   const token = params.get("token");
