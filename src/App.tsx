@@ -29,6 +29,7 @@ import Overdrive3D from "@/pages/overdrive-3d";
 import AvernusArena from "@/pages/avernus-arena";
 import Wargus from "@/pages/wargus";
 import GGEScene from "@/pages/gge-scene";
+import EraShowcase from "@/pages/era-showcase";
 import PrivacyPolicy from "@/pages/privacy-policy";
 import TermsOfService from "@/pages/terms-of-service";
 import NotFound from "@/pages/not-found";
@@ -68,6 +69,7 @@ function Router() {
       <Route path="/avernus-arena" component={AvernusArena} />
       <Route path="/wargus" component={Wargus} />
       <Route path="/gge-scene" component={GGEScene} />
+      <Route path="/era-showcase" component={EraShowcase} />
       <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/terms-of-service" component={TermsOfService} />
 
