@@ -42,7 +42,7 @@ const DEPLOYMENTS: Deployment[] = [
   { name: 'Identity API', url: 'https://id.grudge-studio.com', platform: 'Railway', description: 'JWT auth, Discord/GitHub/Google OAuth', status: 'checking' },
   { name: 'GrudaChain Nexus', url: 'https://grudachain.grudgestudio.com', platform: 'Vercel', description: 'Deployment directory & link catalog', status: 'checking' },
   { name: 'App Gallery', url: 'https://grudachain-app-gallery.vercel.app', platform: 'Vercel', description: 'Grudge Studio project showcase', status: 'checking' },
-  { name: 'ObjectStore API', url: 'https://molochdagod.github.io/ObjectStore', platform: 'GitHub Pages', description: 'Game data API — weapons, armor, sprites (500+ items)', status: 'checking' },
+  { name: 'Objectstore Worker', url: 'https://objectstore.grudge-studio.com', platform: 'Cloudflare', description: 'Game asset catalog API v3.4.0 — GET /api/v1/catalog', status: 'checking' },
   { name: 'Puter Cloud Dashboard', url: 'https://grudge-studio.puter.site', platform: 'Puter', description: 'AI chat, cloud storage, profile management', status: 'checking' },
   { name: 'GRUDA Legion Node', url: 'https://gruda-legion-production.up.railway.app/health', platform: 'Railway', description: 'AI agent node — Socket.IO powered', status: 'checking' },
 ];
