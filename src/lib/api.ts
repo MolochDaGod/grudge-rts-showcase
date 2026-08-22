@@ -10,7 +10,7 @@ import type {
   Account,
 } from "@/shared/schema";
 
-// ─── Auth API (direct to auth-gateway) ─────────────────────
+// ─── Auth API (direct to Identity API) ─────────────────────
 
 export const authApi = {
   login: async (username: string, password: string): Promise<AuthResponse> => {

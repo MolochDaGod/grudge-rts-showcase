@@ -2,30 +2,36 @@
 // All VITE_ prefixed vars are exposed to the client at build time.
 
 export const config = {
-  /** Auth gateway base URL (no trailing slash) */
+  /** Identity API base URL (no trailing slash) */
   AUTH_GATEWAY_URL:
     import.meta.env.VITE_AUTH_GATEWAY_URL ||
-    "https://grudge-builder-auth.vercel.app",
+    "https://id.grudge-studio.com",
 
   /** API base URL — all apiRequest() calls are prefixed with this */
   API_BASE_URL:
     import.meta.env.VITE_API_BASE_URL ||
-    "https://grudge-builder-auth.vercel.app/api",
+    "https://id.grudge-studio.com/api",
 
   /** This app's public URL — used for OAuth return redirects */
   APP_URL:
     import.meta.env.VITE_APP_URL ||
     (typeof window !== "undefined" ? window.location.origin : "https://grudgestudio.com"),
 
-  /** Discord OAuth redirect (handled by auth-gateway) */
+  /** Discord OAuth redirect (handled by identity API) */
   DISCORD_REDIRECT_URI:
     import.meta.env.VITE_DISCORD_REDIRECT_URI ||
-    "https://grudge-builder-auth.vercel.app/api/discord",
+    "https://id.grudge-studio.com/api/discord",
 
   // ─── Grudge Ecosystem URLs ───────────────────────────────
 
   /** Grudge Warlords — the MMO game */
   GRUDGE_WARLORDS_URL: "https://grudgewarlords.com",
+
+  /** Asset CDN — Grudge Studio assets */
+  ASSET_CDN_URL: "https://assets.grudge-studio.com",
+
+  /** Objectstore Worker — game asset catalog API */
+  OBJECTSTORE_URL: "https://objectstore.grudge-studio.com",
 
   /** GDevelop Assistant — character editor, 3D model library, asset pipeline */
   GDEVELOP_ASSISTANT_URL: "https://gdevelop-assistant.vercel.app",
@@ -66,7 +72,7 @@ export const config = {
   /** Steam game page */
   STEAM_URL: "https://store.steampowered.com/app/2707990/Grudge/",
 
-  /** localStorage key names — match auth-gateway INTEGRATION.txt */
+  /** localStorage key names */
   STORAGE_KEYS: {
     AUTH_TOKEN: "grudge_auth_token",
     USER_ID: "grudge_user_id",
@@ -74,8 +80,13 @@ export const config = {
     DEVICE_ID: "grudge_device_id",
   } as const,
 
-  /** Token lifetime (7 days, matching auth-gateway) */
+  /** Token lifetime (7 days) */
   TOKEN_TTL_MS: 7 * 24 * 60 * 60 * 1000,
+
+  /** GBuX token on Solana (SPL mint address) */
+  GBUX_MINT: "55TpSoMNxbfsNJ9U1dQoo9H3dRtDmjBZVMcKqvU2nray",
+  /** GBuX token decimals */
+  GBUX_DECIMALS: 6,
 } as const;
 
 export type Config = typeof config;

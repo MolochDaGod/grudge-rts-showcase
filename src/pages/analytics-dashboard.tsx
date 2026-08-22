@@ -39,7 +39,7 @@ const DEPLOYMENTS: Deployment[] = [
   { name: 'Grudge Platform', url: 'https://grudge-platform.vercel.app', platform: 'Vercel', description: 'App launcher, auth API, toolkit SPA', status: 'checking' },
   { name: 'GDevelop Assistant', url: 'https://gdevelop-assistant.vercel.app', platform: 'Vercel', description: 'AI game dev tools, 30+ pages, 3D editors', status: 'checking' },
   { name: 'Warlord Crafting Suite', url: 'https://warlord-crafting-suite.vercel.app', platform: 'Vercel', description: 'Crafting, character builder, professions, PvP', status: 'checking' },
-  { name: 'Auth Gateway', url: 'https://auth-gateway-flax.vercel.app', platform: 'Vercel', description: 'JWT auth, Discord/GitHub/Google OAuth', status: 'checking' },
+  { name: 'Identity API', url: 'https://id.grudge-studio.com', platform: 'Railway', description: 'JWT auth, Discord/GitHub/Google OAuth', status: 'checking' },
   { name: 'GrudaChain Nexus', url: 'https://grudachain.grudgestudio.com', platform: 'Vercel', description: 'Deployment directory & link catalog', status: 'checking' },
   { name: 'App Gallery', url: 'https://grudachain-app-gallery.vercel.app', platform: 'Vercel', description: 'Grudge Studio project showcase', status: 'checking' },
   { name: 'ObjectStore API', url: 'https://molochdagod.github.io/ObjectStore', platform: 'GitHub Pages', description: 'Game data API — weapons, armor, sprites (500+ items)', status: 'checking' },

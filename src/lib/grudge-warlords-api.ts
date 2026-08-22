@@ -106,8 +106,8 @@ export const warlordsApi = {
   },
 
   /**
-   * Link a Grudge Studio auth-gateway session to a GrudgeWars account.
-   * Sends the auth-gateway token + userId so GrudgeWars can associate
+   * Link a Grudge Studio Identity API session to a GrudgeWars account.
+   * Sends the Identity API token + userId so GrudgeWars can associate
    * the two accounts via shared grudge_id.
    */
   linkSession: (authToken: string, userId: string) =>
