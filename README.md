@@ -20,6 +20,8 @@ cp .env.example .env   # configure environment variables
 npm run dev            # Vite dev server on :5173
 ```
 
+Open `http://localhost:5173/era-showcase` to view the RTS building showcase.
+
 Deploys automatically to Vercel on push to `main`.
 
 ## Stack
@@ -33,6 +35,13 @@ Deploys automatically to Vercel on push to `main`.
 - **Tailwind CSS** — styling with custom Grudge theme tokens
 
 ## Featured Demos
+
+### 🏰 Era Showcase
+**Medieval RTS Building Viewer** — Browse the complete collection of medieval RTS buildings at accurate relative scale. Models are organized by category (Military, Economic, Civic, Resources) with an interactive 3D viewer.
+
+**Route:** `/era-showcase`  
+**Tech:** Three.js, GLTFLoader, OrbitControls, category-based navigation  
+**Models:** 16 buildings and resource structures displayed in grid layout with proper scale relationships
 
 ### 🌋 Avernus Arena
 **3D MOBA-style PvP combat** — Choose dual weapons (Greatsword, Bow, Sabres, Scythe, Runeblade), each with unique subclass abilities and resource systems. Real-time arena combat with minions, towers, and strategic gameplay.
@@ -64,15 +73,20 @@ src/
     grudge-warlords-api.ts    # Cross-origin client for grudgewarlords.com
   pages/
     home.tsx                  # Landing page with project showcase
+    era-showcase.tsx          # Medieval RTS building showcase with 3D viewer
     avernus-3d.tsx            # 3D MOBA arena combat game
     overdrive-3d.tsx          # 3D racing game with physics
     wargus.tsx                # RTS game demo
     tower-defense.tsx         # Tower defense demo
     [other demos...]
   components/
+    model-viewer.tsx          # Three.js GLB viewer for RTS models
     header.tsx / footer.tsx   # Global nav with auth state
     protected-route.tsx       # Auth-gated route wrapper
     hero.tsx / features.tsx   # Landing page sections
+public/
+  models/
+    rts/                      # Medieval RTS building GLB models
 ```
 
 ## Authentication
